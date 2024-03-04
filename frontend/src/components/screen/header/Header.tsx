@@ -44,7 +44,7 @@ const Header = () => {
         >
           <div className='w-full flex items-center justify-around p-5'>
             <div style={{ width: 240 }}>
-              <h1 className='text-2xl font-semibold'>Dialect</h1>
+              <h1 className='text-2xl font-semibold text-black dark:text-white '>Dialect</h1>
             </div>
             <ul className='flex items-center justify-center gap-5 list-none'>
               {links.map((link, index) => {

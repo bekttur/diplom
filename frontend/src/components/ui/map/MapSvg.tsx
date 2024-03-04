@@ -18,9 +18,10 @@ const MapSvg = () => {
       <IconButton
         onClick={() => setSelectedPath(null)}
         style={{ display: selectedPath !== null ? 'flex' : 'none', position: 'absolute', top: 180, left: 310 }}
-        color='amber'
+        variant="outline"
+        color='cyan'
       >
-        <Maximize2 color='white' />
+        <Maximize2 />
       </IconButton>
 
       <motion.div

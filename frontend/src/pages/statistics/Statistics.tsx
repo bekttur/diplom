@@ -16,7 +16,7 @@ function Number({ n }) {
 
 const Statistics = () => {
   return (
-    <motion.div
+    <div
       className={`${styles.statistic} bg-[#f1f1f100]  text-[#18181b] dark:text-white`}
       style={{scrollSnapAlign: 'center'}}
     >
@@ -59,7 +59,7 @@ const Statistics = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
