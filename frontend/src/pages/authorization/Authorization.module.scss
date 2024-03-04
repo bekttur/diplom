@@ -1,0 +1,56 @@
+// Login.module.scss
+.videoContainer {
+	position: relative;
+	max-width: 100%;
+	height: 100vh;
+	overflow: hidden;
+  }
+  
+  .overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .background-video video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+  }
+  
+
+
+
+
+  .block{
+	width: 50%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+
+  .form{
+	width: 50%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background-color: white;
+  }
+
+  .background{
+	width: 100%;
+	height: 100vh;
+	background-image: url("/bg.jpeg");
+	background-position: center;
+	background-size: cover;
+  }

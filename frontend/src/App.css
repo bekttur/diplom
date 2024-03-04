@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+
+*{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: normal;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: inherit;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+
+input:focus{
+  border: 1px solid #FFC100;
+  outline: 1px solid #FFC100;
+}
+
+select:focus{
+  border-bottom: 1px solid #FFC100;
+  outline: 1px solid #FFC100;
+}

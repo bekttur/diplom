@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+	scroll-snap-type: y mandatory;
+	scroll-behavior: smooth;
+}
+
+
+.blur{
+	position: fixed;
+	box-shadow:  0 0 1500px 70px #1d4ed8;
+	top: 200px;
+	left: 300px;
+}

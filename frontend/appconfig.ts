@@ -1,0 +1,1 @@
+export const APP_BACKEND_IP = 'http://localhost:4000';

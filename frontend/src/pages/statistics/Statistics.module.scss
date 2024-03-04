@@ -1,0 +1,17 @@
+.statistic{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+svg > path{
+    border: 2px solid black;
+}
+
+svg > g >path:hover {
+    fill: #3b9a9f;
+    transition: 0.1s all ease;
+}
