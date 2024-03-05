@@ -17,10 +17,18 @@ import EditDialect from './pages/add/editDialect/EditDialect';
 import EditDialectPage from './pages/add/editDialect/editDialectPage/EditDialectPage';
 import Profile from './pages/profile/Profile';
 import EditProfile from './pages/profile/editProfile/EditProfile';
+import { useState } from 'react';
+import UpBtn from './components/ui/upBtn/UpBtn';
 
 function App() {
   const { authUser } = useAuthContext();
   const typedAuthUser = authUser as IAuthUser | null;
+
+  const [isMainVisible, setIsMainVisible] = useState<boolean>(true);
+
+  const handleVisibility = (isVisible: boolean) => {
+    setIsMainVisible(isVisible);
+  };
 
   return (
     <BrowserRouter>
@@ -28,11 +36,21 @@ function App() {
         <Route path='/' element={authUser ? <Header /> : null}>
           <Route
             path=''
-            element={authUser ? <Home /> : <Navigate to='/login' />}
+            element={
+              authUser ? (
+                <Home handleVisibility={handleVisibility} />
+              ) : (
+                <Navigate to='/login' />
+              )
+            }
           />
           <Route path='about-us' element={<AboutUs />} />
           <Route path='statistics' element={<Statistics />} />
-          <Route path='search' element={<Search />} />
+          <Route
+            path='search'
+            element={<Search handleVisibility={handleVisibility} />}
+          />
+          {/* for admin */}
           {typedAuthUser && typedAuthUser.role === 'admin' ? (
             <Route path='add/' element={<AddPage />}>
               <Route path='' element={<AddDialect />} />
@@ -43,6 +61,7 @@ function App() {
           ) : typedAuthUser?.role === 'сonnector' ? (
             <Route path='add' element={<AddDialect />} />
           ) : null}
+          {/*  */}
           <Route
             path='login'
             element={authUser ? <Navigate to='/' /> : <Login />}
@@ -61,6 +80,8 @@ function App() {
       </Routes>
       <Toaster />
       {authUser ? <Footer /> : null}
+      {authUser ? <UpBtn isMainVisible={isMainVisible} /> : null}
+      
     </BrowserRouter>
   );
 }

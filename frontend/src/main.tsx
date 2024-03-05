@@ -21,13 +21,13 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <React.Suspense fallback='loading...'>
+      {/* <React.Suspense fallback='loading...'> */}
         <AuthContextProvider>
           <Theme>
             <App />
           </Theme>
         </AuthContextProvider>
-      </React.Suspense>
+      {/* </React.Suspense> */}
     </QueryClientProvider>
   </React.StrictMode>
 );

@@ -21,7 +21,8 @@ h1 {
 }
 
 
-input:focus{
+input:focus,
+textarea:focus{
   border: 1px solid #FFC100;
   outline: 1px solid #FFC100;
 }
@@ -30,3 +31,4 @@ select:focus{
   border-bottom: 1px solid #FFC100;
   outline: 1px solid #FFC100;
 }
+

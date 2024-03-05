@@ -18,3 +18,10 @@
   justify-content: center;
   text-align: center;
   }
+
+  .phoneSvg {
+    stroke: #FFC100;
+    position: absolute;
+    margin: auto;
+    z-index: -1;
+  }

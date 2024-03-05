@@ -52,7 +52,7 @@ const MapSvg = () => {
         xmlns='http://www.w3.org/2000/svg'
         viewBox='0 0 1036.93 569.163'
         id='svgmap'
-        className='fill-[#39718d] dark:fill-[#22385b]'
+        className='fill-[#39718d] dark:fill-[#29506D]'
       >
         <g id='qq_map' stroke='#fff' color='#000'>
           <path

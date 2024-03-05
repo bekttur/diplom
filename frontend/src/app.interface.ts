@@ -108,3 +108,20 @@ export interface IUsers {
 export interface IUserData extends IUsers {
   isDirty: boolean;
 }
+
+export interface IMessage {
+  name: string,
+  email: string,
+  message: string
+}
+
+export interface Item {
+  id: number;
+  title: string;
+  img: string;
+  description: string;
+}
+
+export interface HomeProps {
+  handleVisibility: (isVisible: boolean) => void;
+}

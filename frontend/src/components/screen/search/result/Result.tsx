@@ -3,7 +3,7 @@ import { IResult } from '../../../../app.interface';
 
 const Result: React.FC<IResult> = ({data, handleDialect}) => {
 	return (
-		<div className='w-full h-fit p-5'>
+		<div className='w-full h-screen p-5' style={{scrollSnapAlign: 'center'}}>
           <h1>Result</h1>
           {data && data.map((item, index) => {
               if(item.title.toLowerCase() === handleDialect.toLowerCase()){
