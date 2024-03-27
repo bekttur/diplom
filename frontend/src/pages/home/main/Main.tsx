@@ -9,6 +9,7 @@ const Main = ({
 }: {
   handleVisibility: (isVisible: boolean) => void;
 }) => {
+  const { t } = useTranslation('translation');
   const ref = useRef<HTMLDivElement>(null);
 
   // UP btn
@@ -30,7 +31,6 @@ const Main = ({
       }
     };
   }, [handleVisibility]);
-
 
   // scroll
   const { scrollYProgress } = useScroll({
@@ -93,11 +93,12 @@ const Main = ({
           className='w-2/4 h-full flex flex-col items-center justify-center gap-5 mb-36'
           style={{ y: yText, position: 'relative', zIndex: 2 }}
         >
-          <h1 className='text-6xl text-[#18181b] dark:text-white font-normal leading-[1.1em]'>
+          <h1 className='text-5xl text-[#18181b] dark:text-white font-normal leading-[1.1em]'>
             <span className='text-[#00749E] dark:text-[#50A7D3]'>
-              Қазақ диалектіне
+              {t('home.titleBlue')}
             </span>
-            <br /> арналған платформа
+            <br />
+            {t('home.title')}
           </h1>
           <p className='text-[#656565] dark:text-[#D1D5DB]  leading-relaxed font-thin'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta

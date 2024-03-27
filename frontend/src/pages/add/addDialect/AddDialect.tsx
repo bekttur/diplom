@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { IAllDialect } from '../../../app.interface';
 import { useCreateDialect } from '../../../hooks/useCreateDialect';
 import { TextArea, TextField } from '@radix-ui/themes';
-import Button from '../../../components/ui/button/Button';
 import { motion } from 'framer-motion';
 import ButtonUI from '../../../components/ui/button/Button';
 
@@ -15,6 +14,7 @@ const clearData = {
   enRegion: '',
   ruRegion: '',
   hide: false,
+  zone: '',
 };
 
 const AddDialect = () => {
@@ -25,24 +25,22 @@ const AddDialect = () => {
   const addDialectHandler = async (e: any) => {
     e.preventDefault();
     mutate(dialectData);
+    window.location.reload();
   };
 
   return (
     <div
-      className='h-screen flex items-center justify-center'
+      className='h-fit flex items-center justify-center'
       style={{ scrollSnapAlign: 'center' }}
     >
       <motion.form
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
         onSubmit={addDialectHandler}
-        className='flex flex-col shadow bg-white dark:bg-transparent px-12 py-5 rounded-lg'
+        className='flex flex-col bg-white dark:bg-transparent px-12 py-5 rounded-lg'
       >
         <div className='flex flex-col gap-5'>
-          <div className='w-full flex flex-col items-start justify-center'>
-            <h2 className='mb-2'>Title: </h2>
+          <div className='w-full flex items-start justify-between'>
             <div>
+              <h2 className='mb-2'>Title: </h2>
               <TextField.Input
                 color='indigo'
                 style={{
@@ -53,6 +51,24 @@ const AddDialect = () => {
                 value={dialectData.title}
                 onChange={(e) =>
                   setDialectData((prev) => ({ ...prev, title: e.target.value }))
+                }
+                placeholder='қаз...'
+                required={true}
+                minLength={2}
+              />
+            </div>
+            <div>
+              <h2 className='mb-2'>Өңір: </h2>
+              <TextField.Input
+                color='indigo'
+                style={{
+                  width: 300,
+                  padding: '20px 2px',
+                }}
+                variant='soft'
+                value={dialectData.zone}
+                onChange={(e) =>
+                  setDialectData((prev) => ({ ...prev, zone: e.target.value }))
                 }
                 placeholder='қаз...'
                 required={true}

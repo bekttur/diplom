@@ -9,12 +9,7 @@ import Login from './pages/authorization/Authorization';
 import Footer from './components/screen/footer/Footer';
 import { Toaster } from 'react-hot-toast';
 import { useAuthContext } from './context/AuthContext';
-import { IAuthUser } from './app.interface';
-import AddPage from './pages/add/addPage/AddPage';
-import EditRole from './pages/add/editRole/EditRole';
-import AddDialect from './pages/add/addDialect/AddDialect';
-import EditDialect from './pages/add/editDialect/EditDialect';
-import EditDialectPage from './pages/add/editDialect/editDialectPage/EditDialectPage';
+import AddPage from './pages/add/AddPage';
 import Profile from './pages/profile/Profile';
 import EditProfile from './pages/profile/editProfile/EditProfile';
 import { useState } from 'react';
@@ -22,7 +17,6 @@ import UpBtn from './components/ui/upBtn/UpBtn';
 
 function App() {
   const { authUser } = useAuthContext();
-  const typedAuthUser = authUser as IAuthUser | null;
 
   const [isMainVisible, setIsMainVisible] = useState<boolean>(true);
 
@@ -44,24 +38,16 @@ function App() {
               )
             }
           />
-          <Route path='about-us' element={<AboutUs />} />
-          <Route path='statistics' element={<Statistics />} />
+          <Route
+            path='about-us'
+            element={<AboutUs handleVisibility={handleVisibility} />}
+          />
+          <Route path='statistics' element={<Statistics handleVisibility={handleVisibility} />} />
           <Route
             path='search'
             element={<Search handleVisibility={handleVisibility} />}
           />
-          {/* for admin */}
-          {typedAuthUser && typedAuthUser.role === 'admin' ? (
-            <Route path='add/' element={<AddPage />}>
-              <Route path='' element={<AddDialect />} />
-              <Route path='users' element={<EditRole />} />
-              <Route path='dialect' element={<EditDialect />} />
-              <Route path=':id' element={<EditDialectPage />} />
-            </Route>
-          ) : typedAuthUser?.role === 'сonnector' ? (
-            <Route path='add' element={<AddDialect />} />
-          ) : null}
-          {/*  */}
+          <Route path='add' element={<AddPage handleVisibility={handleVisibility} />} />
           <Route
             path='login'
             element={authUser ? <Navigate to='/' /> : <Login />}
@@ -74,14 +60,13 @@ function App() {
             path='forgot-password'
             element={authUser ? <Navigate to='/' /> : <Login />}
           />
-          <Route path='profile' element={<Profile />} />
-          <Route path='edit-profile/' element={<EditProfile />} />
+          <Route path='profile' element={<Profile handleVisibility={handleVisibility} />} />
+          <Route path='edit-profile/' element={<EditProfile handleVisibility={handleVisibility} />} />
         </Route>
       </Routes>
       <Toaster />
       {authUser ? <Footer /> : null}
       {authUser ? <UpBtn isMainVisible={isMainVisible} /> : null}
-      
     </BrowserRouter>
   );
 }

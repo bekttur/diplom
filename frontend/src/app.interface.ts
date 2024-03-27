@@ -8,11 +8,14 @@ export interface IAllDialect {
   enRegion: string;
   ruRegion: string;
   hide: boolean;
+  zone: string;
+  __v?: number;
 }
 
 export interface IResult {
   data: IAllDialect[] | undefined;
   handleDialect: string;
+  currentRegion: string[];
 }
 
 export interface ITypewriter {
@@ -23,6 +26,9 @@ export interface ITypewriter {
 export interface ISearchForm {
   handleDialect: string;
   setHandleDialect: React.Dispatch<React.SetStateAction<string>>;
+  resultRef: React.RefObject<HTMLDivElement>;
+  currentRegion: string[];
+  setCurrentRegion: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export interface ISearch {

@@ -1,28 +1,23 @@
-import { TextArea, TextField } from '@radix-ui/themes';
+import { Dialog, TextArea, TextField } from '@radix-ui/themes';
 import { motion } from 'framer-motion';
-import Button from '../../../../components/ui/button/Button';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDialects } from '../../../../hooks/useDialects';
 import { IAllDialect } from '../../../../app.interface';
 import toast from 'react-hot-toast';
-import { ArrowLeft } from 'lucide-react';
 import { DialectService } from '../../../../services/dialect.service';
 import ButtonUI from '../../../../components/ui/button/Button';
 
-const EditDialectPage = () => {
+const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
   const { id } = useParams();
-  const { data } = useDialects();
   const navigate = useNavigate();
 
   const [dialectData, setDialectData] = useState<IAllDialect | null>(null);
 
   useEffect(() => {
-    if (data) {
-      // @ts-ignore
-      setDialectData(data.find((elem: IAllDialect) => elem._id === id));
+    if (dialect) {
+      setDialectData(dialect);
     }
-  }, [id, data]);
+  }, [id, dialect]);
 
   console.log(dialectData);
 
@@ -31,30 +26,29 @@ const EditDialectPage = () => {
       if (!dialectData) {
         throw new Error('Dialect data is null');
       }
-      DialectService.updateDialect(dialectData)
+      DialectService.updateDialect(dialectData);
       toast.success('Успешно обновлено!');
-      navigate('/add/dialect');
+      navigate('/add');
     } catch (error) {
       toast.error('Ошибка при обновлении');
+    } finally {
+      window.location.reload();
     }
   };
 
   return (
-    <div className='h-screen flex flex-col items-start justify-center gap-5' style={{scrollSnapAlign: 'center'}}>
-      <div onClick={() => navigate('/add/dialect')} className='flex gap-2 text-[#39718D] cursor-pointer'>
-        <ArrowLeft width={16} /> <span>Назад</span>
-      </div>
+    <div className='h-fit flex flex-col items-start justify-center gap-5'>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className='flex flex-col shadow bg-white dark:bg-transparent px-12 py-5'
+        className='flex flex-col bg-white dark:bg-transparent'
       >
         {!!dialectData && (
           <div className='flex flex-col gap-5'>
-            <div className='w-full flex flex-col items-start justify-center'>
-              <h2 className='mb-2'>Title: </h2>
+            <div className='w-full flex items-start justify-between'>
               <div>
+                <h2 className='mb-2'>Title: </h2>
                 <TextField.Input
                   color='indigo'
                   style={{
@@ -74,6 +68,27 @@ const EditDialectPage = () => {
                   }}
                 />
               </div>
+              <div>
+                <h2 className='mb-2'>Өңір: </h2>
+                <TextField.Input
+                  color='indigo'
+                  style={{
+                    width: 300,
+                    padding: '20px 2px',
+                  }}
+                  variant='soft'
+                  required={true}
+                  minLength={2}
+                  placeholder='қаз...'
+                  value={dialectData.zone}
+                  onChange={(e) => {
+                    setDialectData((prev: IAllDialect | null) => ({
+                      ...(prev as IAllDialect),
+                      zone: e.target.value,
+                    }));
+                  }}
+                />
+              </div>
             </div>
             <div>
               <h2 className='mb-2'>Мағынасы:</h2>
@@ -81,7 +96,7 @@ const EditDialectPage = () => {
                 <TextArea
                   color='indigo'
                   style={{
-                    width: 300
+                    width: 300,
                   }}
                   variant='soft'
                   required={true}
@@ -98,7 +113,7 @@ const EditDialectPage = () => {
                 <TextArea
                   color='indigo'
                   style={{
-                    width: 300
+                    width: 300,
                   }}
                   variant='soft'
                   minLength={2}
@@ -115,7 +130,7 @@ const EditDialectPage = () => {
                 <TextArea
                   color='indigo'
                   style={{
-                    width: 300
+                    width: 300,
                   }}
                   variant='soft'
                   minLength={2}
@@ -137,7 +152,7 @@ const EditDialectPage = () => {
                 <TextArea
                   color='indigo'
                   style={{
-                    width: 300
+                    width: 300,
                   }}
                   variant='soft'
                   minLength={2}
@@ -154,7 +169,7 @@ const EditDialectPage = () => {
                 <TextArea
                   color='indigo'
                   style={{
-                    width: 300
+                    width: 300,
                   }}
                   variant='soft'
                   minLength={2}
@@ -171,7 +186,7 @@ const EditDialectPage = () => {
                 <TextArea
                   color='indigo'
                   style={{
-                    width: 300
+                    width: 300,
                   }}
                   variant='soft'
                   minLength={2}
@@ -188,7 +203,9 @@ const EditDialectPage = () => {
               </div>
             </div>
             <div className='w-full flex items-center justify-center'>
-              <ButtonUI title='Save' type='submit' onClick={updateData} />
+              <Dialog.Close>
+                <ButtonUI title='Save' type='submit' onClick={updateData} />
+              </Dialog.Close>
             </div>
           </div>
         )}

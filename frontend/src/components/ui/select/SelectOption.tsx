@@ -1,34 +1,44 @@
 import React from 'react';
 import Select from 'react-select';
 import { options } from '../../screen/search/searchForm/option.data';
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 
 interface SelectOptionProps {
   currentRegion: string[];
   setCurrentRegion: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const SelectOption: React.FC<SelectOptionProps> = ({ currentRegion, setCurrentRegion }) => {
-	const getValue = () => {
-		return currentRegion.length > 0 ? options.find(c => c.value === currentRegion[0]) : '';
-	}
-	
+const SelectOption: React.FC<SelectOptionProps> = ({
+  currentRegion,
+  setCurrentRegion,
+}) => {
+  const { t } = useTranslation('translation'); 
 
-	const onChange = (newValue: any) => {
-		setCurrentRegion(newValue.value)
-	}
+  const getValue = () => {
+    return currentRegion.length > 0
+      ? options.find((c) => c.value === currentRegion[0])
+      : '';
+  };
 
-	console.log(currentRegion);
-	
+  const translatedOptions = options.map(option => ({
+    ...option,
+    label: t(option.label) 
+  }));
 
-	return (
-			<Select
-				classNamePrefix='custom-select'
-				onChange={onChange}
-				value={getValue()}
-				options={options}
-				placeholder='өңірлер...'
-			/>
-	)
+  const onChange = (newValue: any) => {
+    setCurrentRegion(newValue.value);
+  };
+
+  return (
+    <Select
+      classNamePrefix='custom-select'
+      onChange={onChange}
+      value={getValue()}
+      options={translatedOptions} 
+      placeholder={t('search.placeholder')} 
+    />
+  );
 };
 
 export default SelectOption;

@@ -77,7 +77,7 @@ const Header = () => {
                       : null
                   } `}
                 >
-                  Add
+                  {t('menu.control')}
                 </Link>
               ) : null}
             </ul>

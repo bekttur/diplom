@@ -5,14 +5,18 @@ import { useAuthContext } from '../../../context/AuthContext';
 import { AuthService } from '../../../services/auth.service';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { UsersService } from '../../../services/users.service';
 import { APP_BACKEND_IP } from '../../../../appconfig';
 import { useNavigate } from 'react-router-dom';
 import ButtonUI from '../../../components/ui/button/Button';
 
-const EditProfile = () => {
+const EditProfile = ({
+  handleVisibility,
+}: {
+  handleVisibility: (isVisible: boolean) => void;
+}) => {
   const { authUser } = useAuthContext();
   const navigate = useNavigate();
 
@@ -126,13 +130,35 @@ const EditProfile = () => {
     setAllImage(result.data.data);
   };
 
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        handleVisibility(entry.isIntersecting);
+      },
+      { threshold: 0.5 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [handleVisibility]);
+
   return (
     <motion.div
+      id='main'
+      ref={ref}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className='w-full h-fit flex items-start justify-center'
-      style={{scrollSnapAlign: 'center'}}
+      style={{ scrollSnapAlign: 'center' }}
     >
       <div className='w-3/4 h-screen flex flex-col items-start px-24 justify-center p-10 mt-10'>
         <form
@@ -296,7 +322,15 @@ const EditProfile = () => {
             </div>
           </div>
           <div className='w-full flex justify-evenly items-center'>
-            <Button size='3' type='button' color='gray' onClick={() => navigate('/profile')} style={{cursor: 'pointer'}}>Cancel</Button>
+            <Button
+              size='3'
+              type='button'
+              color='gray'
+              onClick={() => navigate('/profile')}
+              style={{ cursor: 'pointer' }}
+            >
+              Cancel
+            </Button>
             <ButtonUI title='Save' type='submit' />
           </div>
         </form>

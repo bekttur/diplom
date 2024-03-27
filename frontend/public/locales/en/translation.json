@@ -1,12 +1,117 @@
-
-
 {
-	"title": "Development of an information system on the area of application of everyday dialect words in the regions of Kazakhstan",
-	"menu.sign_in": "Sign in",
-	"menu.home": "Home",
-	"menu.search": "Search",
-	"menu.statistics": "Statistics",
-	"menu.about": "About Us",
-	"menu.addDialect": "Add",
-	"search": "Enter the desired dialect word!"
+  "title": "Development of an information system on the area of application of everyday dialect words in the regions of Kazakhstan",
+  "menu.sign_in": "Sign in",
+  "menu.home": "Home",
+  "menu.search": "Search",
+  "menu.statistics": "Statistics",
+  "menu.about": "Contact",
+  "menu.control": "Control",
+  "menu.dialect": "Dialect",
+  "menu.role": "Roles",
+  "home": {
+    "titleBlue": "Domestic Kazakh dialect",
+    "title": "platform",
+    "advantages": {
+      "title": "According to the project",
+      "firstTitle": "Importance of the National Corps",
+      "firstDescription": "The corpus can represent as many types of texts as possible in the language, and accordingly these texts are gradually included in the corpus. The quality of the corpus depends on the maximum increase in its number of words (hundreds of millions). The corpus database contains additional information in the form of annotations or annotations about the nature of the included texts. It collects information concentrated in one place. The corpus database is constantly improved and supplemented.",
+      "secondTitle": "Why is the corps needed?",
+      "secondDescription": "The national corpus is first necessary for the scientific study of the vocabulary and grammar of the language and the changes that have occurred in it over hundreds of years; Optimizes information search thanks to modern technological development; Facilitates the analysis, processing, and statistical data collection of large-scale materials; It will be possible to build the necessary dictionaries based on the corpus base, etc. National corpora are also important for teaching a language as a mother tongue or as a foreign language. In world languages, textbooks and curricula are now corpus-oriented. A foreigner, a school student, a teacher, a journalist, an editor and a writer can quickly and efficiently check the features of the use of an unfamiliar word or grammatical form using the corpus.",
+      "thirdTitle": "Data visualization",
+      "thirdDescription": "The information system provides an opportunity to visualize data about dialect words and their use in different regions of Kazakhstan. It includes graphs, charts and maps that help the user better understand the regional distribution of dialects, their frequency of use and the dynamics of change over time. Data visualization makes dialect research accessible and visual.",
+      "fourTitle": "Interactive features",
+      "fourDescription": "The system provides interactive features that allow users to interact with the database of Kazakh dialects. This may include data search, filtering and sorting functions, as well as the ability to add new data or user comments. Interactive features make learning dialects fun and convenient, allowing users to contribute to the development of the system."
+    },
+    "faq": {
+      "title": "FAQ"
+    }
+  },
+
+  "search": {
+    "title": "Enter the desired dialect word!",
+    "placeholder": "regions...",
+    "button": "Search",
+    "zone": {
+      "west": "West",
+      "east": "East",
+      "north": "North",
+      "south": "South",
+      "center": "Center"
+    },
+    "defaultBlock": {
+      "title": "How does it work?",
+      "description": "Ease of word search on the site.",
+      "steps": {
+        "firstTitle": "First step",
+        "firstDescription": "Enter your word",
+        "secondTitle": "Second step",
+        "secondDescription": "Select a region",
+        "thirdTitle": "Third step",
+        "thirdDescription": "Browse the result",
+        "fourTitle": "Fourth step",
+        "fourDescription": "Contribute to the dictionary"
+      }
+    },
+    "lastBlock": {
+      "title": "Discover the wealth of language!",
+      "description": "Look up dialects words.",
+      "button": "Start",
+      "advantages": {
+        "firstTitle": "Registration privilege",
+        "firstDescription": "Contribute to the development of the dialect word",
+        "secondTitle": "Vocabulary statistics",
+        "secondDescription": "A complete view of the language fund",
+        "thirdTitle": "With us",
+        "thirdDescription": "Contribute to the dictionary"
+      }
+    }
+  },
+
+  "statistic": {
+    "regions": {
+      "petropavl": "Petropavl",
+      "astana": "Astana",
+      "qostanay": "Kostanay",
+      "pavlodar": "Pavlodar",
+      "aktobe": "Aktobe",
+      "oral": "Uralsk",
+      "atyrau": "Atyrau",
+      "aqtau": "Aktau",
+      "qyzylorda": "Kyzylorda",
+      "zhezqazgan": "Zhezkazgan",
+      "shymkent": "Shymkent",
+      "almaty": "Almaty",
+      "qaragandy": "Karaganda",
+      "taraz": "Taraz",
+      "taldyqorgan": "Taldykorgan",
+      "oskemen": "Oskemen",
+      "semey": "Semey"
+    },
+    "city": "city",
+    "numberBlock": {
+      "title": "Total number of domestic dialects",
+      "percent": "Percentage indicator"
+    }
+  },
+
+  "aboutUs": {
+    "title": "Suggestions, doubts, collaborations, questions and everything in between.",
+    "myWord": "We are here to help",
+    "description": "Whether you have a request to add, edit, or delete words, we're happy to help. 🤝",
+    "form": {
+      "name": "Enter name...",
+      "mail": "Enter mail...",
+      "message": "Message...",
+      "button": "Submit"
+    }
+  },
+
+  "control": {
+    "dialect": {
+      "title": "Title",
+      "region": "Region",
+      "action": "Action",
+      "addButton": "Add dialect"
+    }
+    }
 }

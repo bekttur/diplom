@@ -1,62 +1,137 @@
+import { useEffect, useRef, useState } from 'react';
+import Diagram from '../../components/ui/diagram/Diagram';
 import MapSvg from '../../components/ui/map/MapSvg';
-import styles from './Statistics.module.scss';
-import { motion } from 'framer-motion';
-import { useSpring, animated } from 'react-spring';
+import { useDialects } from '../../hooks/useDialects';
+import { IAllDialect } from '../../app.interface';
+import StatisticsNumber from '../../components/ui/statistics_number/StatisticsNumber';
 
-// @ts-ignore
-function Number({ n }) {
-  const { number } = useSpring({
-    from: { number: 0 },
-    number: n,
-    delay: 200,
-    config: { mass: 1, tension: 30, friction: 10 },
+const Statistics = ({
+  handleVisibility,
+}: {
+  handleVisibility: (isVisible: boolean) => void;
+}) => {
+
+  const { data } = useDialects();
+  const [dialectCountFromRegion, setDialectCountFromRegion] = useState(0);
+
+  useEffect(() => {
+    if (!!data && !!data.length) {
+      setDialectCountFromRegion(data.length);
+    }
+  }, [data]);
+
+  const [zoneCount, setZoneCount] = useState({
+    westCount: 0,
+    eastCount: 0,
+    northCount: 0,
+    southCount: 0,
+    centerCount: 0,
   });
-  return <animated.div>{number.to((n) => n.toFixed(0))}</animated.div>;
-}
 
-const Statistics = () => {
+  useEffect(() => {
+    setZoneCount({
+      westCount: 0,
+      eastCount: 0,
+      northCount: 0,
+      southCount: 0,
+      centerCount: 0,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (Array.isArray(data)) {
+      data.forEach((item: IAllDialect) => {
+        switch (item.zone) {
+          case 'Батыс':
+            setZoneCount((prevCount) => ({
+              ...prevCount,
+              westCount: prevCount.westCount + 1,
+            }));
+            break;
+          case 'Шығыс':
+            setZoneCount((prevCount) => ({
+              ...prevCount,
+              eastCount: prevCount.eastCount + 1,
+            }));
+            break;
+          case 'Солтүстік':
+            setZoneCount((prevCount) => ({
+              ...prevCount,
+              northCount: prevCount.northCount + 1,
+            }));
+            break;
+          case 'Оңтүстік':
+            setZoneCount((prevCount) => ({
+              ...prevCount,
+              southCount: prevCount.southCount + 1,
+            }));
+            break;
+          default:
+            setZoneCount((prevCount) => ({
+              ...prevCount,
+              centerCount: prevCount.centerCount + 1,
+            }));
+        }
+      });
+    }
+  }, [data]);
+
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        handleVisibility(entry.isIntersecting);
+      },
+      { threshold: 0.5 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [handleVisibility]);
+
   return (
     <div
-      className={`${styles.statistic} bg-[#f1f1f100]  text-[#18181b] dark:text-white`}
-      style={{scrollSnapAlign: 'center'}}
+      id='main'
+      ref={ref}
+      className='w-full h-screen flex justify-around items-end pb-10'
+      style={{ scrollSnapAlign: 'center' }}
     >
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <MapSvg />
-      </motion.div>
-      <div className='flex gap-10 text-center'>
-        <div className='flex justify-center items-center flex-col gap-5'>
-          <div>
-            <h1 className='text-5xl'>
-              <Number n={170} />
-            </h1>
-          </div>
-          <div>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+        <div className='w-2/4 h-[600px] flex items-center justify-center '>
+          <MapSvg
+            data={data}
+            setDialectCountFromRegion={setDialectCountFromRegion}
+          />
+        </div>
+      <div className='w-1/4 flex flex-col gap-5 items-center justify-center'>
+        <div
+          className='w-fit h-fit shadow-2xl rounded-2xl'
+          style={{
+            background: 'linear-gradient(90deg, #C33764 0%,#1D2671 100%)',
+          }}
+        >
+          <div
+            className='w-[420px] h-[400px] p-10 shadow-2xl rounded-2xl'
+            style={{
+              background: 'rgba(255, 255, 255, 0.75)',
+              boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+              backdropFilter: 'blur(5px)',
+            }}
+          >
+            <Diagram zoneCount={zoneCount} />
           </div>
         </div>
-        <div className='flex justify-center items-center flex-col gap-5'>
-          <div>
-            <h1 className='text-5xl'>
-              <Number n={4439} />
-            </h1>
-          </div>
-          <div>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-          </div>
-        </div>
-        <div className='flex justify-center items-center flex-col gap-5'>
-          <div>
-            <h1 className='text-5xl'>
-              <Number n={2000} />
-            </h1>
-          </div>
-          <div>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-          </div>
+        <div className='flex items-center justify-center'>
+          <StatisticsNumber
+            data={data}
+            dialectCountFromRegion={dialectCountFromRegion}
+          />
         </div>
       </div>
     </div>

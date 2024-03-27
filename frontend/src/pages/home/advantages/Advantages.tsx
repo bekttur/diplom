@@ -3,13 +3,16 @@ import styles from './Advantages.module.scss';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { Item } from '../../../app.interface';
 import { items } from './advantages.data';
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 
+const Single = ({ item }: { item: Item }) => {
+  const { t } = useTranslation('translation');
 
-const Single = ({ item }: {item: Item}) => {
-	const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
-    target: ref
+    target: ref,
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [-300, 300]);
@@ -26,9 +29,9 @@ const Single = ({ item }: {item: Item}) => {
           <div className={styles.imageContainer} ref={ref}>
             <img src={item.img} />
           </div>
-          <motion.div className={styles.textContainer} style={{y}}>
-            <h2>{item.title}</h2>
-            <p>{item.description}</p>
+          <motion.div className={styles.textContainer} style={{ y }}>
+            <h2>{t(item.title)}</h2>
+            <p>{t(item.description)}</p>
           </motion.div>
         </div>
       </div>
@@ -37,7 +40,9 @@ const Single = ({ item }: {item: Item}) => {
 };
 
 const Advantages = () => {
-	const ref = useRef<HTMLDivElement | null>(null);
+  const { t } = useTranslation('translation');
+
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -52,7 +57,9 @@ const Advantages = () => {
   return (
     <div className={styles.advantages} ref={ref}>
       <div className={styles.progress}>
-        <h1 className='text-[#00749E] dark:text-[#51A7D3]'>Жоба бойынша</h1>
+        <h1 className='text-[#00749E] dark:text-[#51A7D3]'>
+          {t('home.advantages.title')}
+        </h1>
         <motion.div
           style={{ scaleX }}
           className={styles.progressBar}

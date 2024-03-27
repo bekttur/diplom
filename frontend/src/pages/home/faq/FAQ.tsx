@@ -2,6 +2,8 @@ import { MinusCircle, PlusCircle } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { questions } from './faq.data';
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 
 const variants = {
   initial: {
@@ -19,6 +21,8 @@ const variants = {
 };
 
 const FAQ = () => {
+  const { t } = useTranslation('translation');
+
   const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
 
   return (
@@ -28,7 +32,7 @@ const FAQ = () => {
       variants={variants}
     >
       <h2 className='pt-[50px] text-[36px] text-[#00749E] dark:text-[#51A7D3]'>
-        Часто задаваемые вопросы
+        {t('home.faq.title')}
       </h2>
 
       <motion.div

@@ -1,8 +1,8 @@
 export const userRoleOptions = [
-    {
-      value: 'admin',
-      label: 'admin',
-    },
+    // {
+    //   value: 'admin',
+    //   label: 'admin',
+    // },
     {
       value: 'сonnector',
       label: 'connector',

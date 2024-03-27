@@ -3,19 +3,44 @@ import UserInfo from '../../components/screen/userInfo/UserInfo';
 import { useAuthContext } from '../../context/AuthContext';
 import { Table } from '@radix-ui/themes';
 import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
-const Profile = () => {
+const Profile = ({
+  handleVisibility,
+}: {
+  handleVisibility: (isVisible: boolean) => void;
+}) => {
   const { authUser } = useAuthContext();
 
-  console.log(authUser);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        handleVisibility(entry.isIntersecting);
+      },
+      { threshold: 0.5 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [handleVisibility]);
 
   return (
     <motion.div
+      id='main'
+      ref={ref}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className='w-full h-fit flex flex-col items-center justify-center'
-      style={{scrollSnapAlign: 'center'}}
+      style={{ scrollSnapAlign: 'center' }}
     >
       <div className='w-full h-screen flex items-center justify-center gap-20 mt-5'>
         <UserInfo />

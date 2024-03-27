@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ISearch, ISearchForm } from '../../../../app.interface';
 import SelectOption from '../../../ui/select/SelectOption';
 import Loading from '../../../ui/loading/Loading';
+import { Button, TextField } from '@radix-ui/themes';
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 
-const SearchForm: React.FC<ISearchForm> = ({ setHandleDialect }) => {
+const SearchForm: React.FC<ISearchForm> = ({
+  handleDialect,
+  setHandleDialect,
+  resultRef,
+  currentRegion,
+  setCurrentRegion,
+}) => {
+  const { t } = useTranslation('translation');
   const { register, handleSubmit } = useForm<ISearch>();
-  const [currentRegion, setCurrentRegion] = useState(['']);
   const [showLoading, setShowLoading] = useState(false);
 
   const onSubmit: SubmitHandler<ISearch> = (data) => {
@@ -15,29 +24,39 @@ const SearchForm: React.FC<ISearchForm> = ({ setHandleDialect }) => {
     setTimeout(() => setShowLoading(false), 800);
   };
 
+  useEffect(() => {
+    if (resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [handleDialect]);
+
   return (
     <>
       <div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className='flex items-center justify-center'
+          className='h-[120px] flex items-center justify-center gap-1'
         >
-          <input
-            className='w-96 border border-gray-600 rounded-none py-2 px-2 bg-transparent text-base my-10 text-[#18181b]'
+          <TextField.Input
             {...register('search')}
+            style={{ width: 400 }}
             type='text'
+            size='3'
             autoComplete='off'
           />
           <SelectOption
             currentRegion={currentRegion}
             setCurrentRegion={setCurrentRegion}
           />
-          <button
-            className='w-1/4 h-100 border border-[#FFC100] text-2xl my-10 bg-[#FFC100] text-white'
-            style={{ padding: 4 }}
+
+          <Button
+            color='amber'
+            size='3'
+            style={{ color: '#fff' }}
+            className='w-1/5'
           >
-            Find
-          </button>
+            {t('search.button')}
+          </Button>
         </form>
       </div>
       {showLoading ? <Loading /> : null}

@@ -4,7 +4,7 @@ import { APP_BACKEND_IP } from '../../appconfig';
 
 export const DialectService = {
   async getAll() {
-    return await axios.get<IAllDialect>(`${APP_BACKEND_IP}/data`);
+    return await axios.get<IAllDialect[]>(`${APP_BACKEND_IP}/data`);
   },
 
   async addDialect(dialectData: IAllDialect) {

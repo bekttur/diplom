@@ -8,7 +8,8 @@ const dialectSchema = mongoose.Schema({
 	kzRegion: String,
 	enRegion: String,
 	ruRegion: String,
-	hide: Boolean
+	hide: Boolean,
+	zone: String
 })
 
 module.exports = mongoose.model("dialects", dialectSchema);

@@ -304,6 +304,7 @@ app.put('/update/dialect', async (request, response) => {
           kzRegion: dialectData.kzRegion,
           enRegion: dialectData.enRegion,
           ruRegion: dialectData.ruRegion,
+          zone: dialectData.zone,
         },
       }
     );

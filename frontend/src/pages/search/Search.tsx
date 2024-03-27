@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 import SearchForm from '../../components/screen/search/searchForm/SearchForm';
 import Result from '../../components/screen/search/result/Result';
 import { useDialects } from '../../hooks/useDialects';
-import AbayDark from '../../components/ui/abay/AbayDark'
+import AbayDark from '../../components/ui/abay/AbayDark';
+import Advantages from '../../components/screen/search/advantages/Advantages';
 
 const Search = ({
   handleVisibility,
@@ -16,8 +17,23 @@ const Search = ({
   const { t } = useTranslation('translation');
 
   const [handleDialect, setHandleDialect] = useState('');
+  const [currentRegion, setCurrentRegion] = useState(['']);
 
   const { data } = useDialects();
+
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash || hash !== '#result') {
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (hash === '#result' && resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
 
   // UP btn
   const ref = useRef<HTMLDivElement>(null);
@@ -52,12 +68,15 @@ const Search = ({
           <div className='w-3/6' style={{ position: 'relative', zIndex: 1 }}>
             <div className='w-1/1 text-start'>
               <h3 className='text-6xl font-semibold text-[#5F5F5F] dark:text-[#dddddd]'>
-                <Typewriter text={t('search')} delay={50} />
+                <Typewriter text={t('search.title')} delay={50} />
               </h3>
               <div>
                 <SearchForm
                   handleDialect={handleDialect}
                   setHandleDialect={setHandleDialect}
+                  resultRef={resultRef}
+                  currentRegion={currentRegion}
+                  setCurrentRegion={setCurrentRegion}
                 />
               </div>
             </div>
@@ -74,8 +93,10 @@ const Search = ({
           </div>
         </div>
       </div>
-      {/* @ts-ignore */}
-      <Result data={data} handleDialect={handleDialect} />
+      <div id='result' ref={resultRef}>
+        <Result data={data} handleDialect={handleDialect} currentRegion={currentRegion} />
+      </div>
+      <Advantages />
     </>
   );
 };
