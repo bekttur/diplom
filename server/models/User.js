@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
 	city: String,
 	birthday: String,
 	gender: String,
-	phone: Number
+	phone: Number,
 })
 
 module.exports = mongoose.model("users", userSchema);

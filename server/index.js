@@ -24,8 +24,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 require('./models/ImageDetails');
 const Images = mongoose.model('ImageDetails');
 
-
-
 const generateTokenAndSetCookie = (userId, response) => {
   const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: '15d',
@@ -53,7 +51,6 @@ async function searchWithAlgolia(search) {
     console.error(error);
   }
 }
-
 
 // SIGN UP
 app.post('/api/auth/signup', async (request, response) => {
@@ -180,71 +177,65 @@ app.put('/update/user', async (request, response) => {
   }
 });
 
+
+
+
+///upload avatar user
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, '../frontend/public/images');
   },
   filename: function (req, file, cb) {
     const userEmail = req.body.email;
-    const uniqueSuffix = Date.now()
+    const uniqueSuffix = Date.now();
     const filename = `${userEmail}-${uniqueSuffix}`;
     cb(null, filename);
-  }
+  },
 });
 
 const upload = multer({ storage: storage });
 
-app.post(
-  '/upload-image',
-  upload.single('image'),
-  async (request, response) => {
+app.post('/upload-image', upload.single('image'), async (request, response) => {
+  const imageName = request.file.filename;
+
+  try {
+    await Images.create({ image: imageName, userEmail: request.body.email });
+    response.json({ status: 'ok' });
+  } catch (error) {
+    response.json({ status: error });
+  }
+});
+
+app.put('/update-image', upload.single('image'), async (request, response) => {
+  try {
+    const userEmail = request.body.email;
     const imageName = request.file.filename;
 
-    try {
-      await Images.create({ image: imageName, userEmail: request.body.email }); 
-      response.json({ status: "ok" });
-    } catch (error) {
-      response.json({ status: error });
-    }
-  }
-);
+    await Images.updateOne(
+      { userEmail: userEmail },
+      {
+        $set: {
+          image: imageName,
+        },
+      }
+    );
 
-app.put(
-  '/update-image',
-  upload.single('image'),
-  async (request, response) => {
-    try {
-      const userEmail = request.body.email; 
-      const imageName = request.file.filename; 
-
-      await Images.updateOne(
-        { userEmail: userEmail },
-        {
-          $set: {
-            image: imageName
-          },
-        }
-      );
-
-      return response.json({ status: "ok" });
-    } catch (error) {
-      console.error("Error updating image:", error);
-      return response.status(500).json({ error: "Internal server error" });
-    }
-  }
-);
-
-
-
-app.get('/get-image', async(request, response) => {
-  try {
-    Images.find({}).then(data => {
-      response.send({status: "ok", data: data})
-    })
+    return response.json({ status: 'ok' });
   } catch (error) {
-    response.json({status: error})
+    console.error('Error updating image:', error);
+    return response.status(500).json({ error: 'Internal server error' });
   }
-} )
+});
+
+app.get('/get-image', async (request, response) => {
+  try {
+    Images.find({}).then((data) => {
+      response.send({ status: 'ok', data: data });
+    });
+  } catch (error) {
+    response.json({ status: error });
+  }
+});
 
 ////////////////////////////////////////////////////////////////////////////////
 
