@@ -2,6 +2,9 @@
 import { useTranslation } from 'react-i18next';
 import { IResult } from '../../../../app.interface';
 import { motion } from 'framer-motion';
+import { useAuthContext } from '../../../../context/AuthContext';
+import { AuthService } from '../../../../services/auth.service';
+import { useRef, useState } from 'react';
 
 const variants = {
   initial: {
@@ -20,6 +23,8 @@ const variants = {
 
 const Result: React.FC<IResult> = ({ data, handleDialect, currentRegion }) => {
   const { t } = useTranslation('translation');
+  const { authUser } = useAuthContext();
+
 
   return (
     <motion.div
@@ -79,7 +84,7 @@ const Result: React.FC<IResult> = ({ data, handleDialect, currentRegion }) => {
               <motion.img
                 variants={variants}
                 width={160}
-                src='/questionMark.svg'
+                src='/other/questionMark.svg'
               />
               <motion.h1 variants={variants} className='text-4xl'>
                 {t('search.defaultBlock.title')}
@@ -95,9 +100,9 @@ const Result: React.FC<IResult> = ({ data, handleDialect, currentRegion }) => {
             whileInView='animate'
             className='w-1/2 flex flex-col items-center justify-center'
           >
-            <div className='grid grid-cols-2 gap-20 bg-[#EDEDED] dark:bg-[#2E2E2E] p-40'>
+            <div className='grid grid-cols-2 gap-20 bg-[#EDEDED] dark:bg-[#18191B] p-40'>
               <motion.div variants={variants}>
-                <p className='text-xl'>
+                <p className='text-xl dark:text-[#FFC100] text-[#00749E]'>
                   {t('search.defaultBlock.steps.firstTitle')}
                 </p>
                 <p className='text-sm'>
@@ -106,7 +111,7 @@ const Result: React.FC<IResult> = ({ data, handleDialect, currentRegion }) => {
                 </p>
               </motion.div>
               <motion.div variants={variants}>
-                <p className='text-xl'>
+                <p className='text-xl dark:text-[#FFC100] text-[#00749E]'>
                   {' '}
                   {t('search.defaultBlock.steps.secondTitle')}
                 </p>
@@ -115,7 +120,7 @@ const Result: React.FC<IResult> = ({ data, handleDialect, currentRegion }) => {
                 </p>
               </motion.div>
               <motion.div variants={variants}>
-                <p className='text-xl'>
+                <p className='text-xl dark:text-[#FFC100] text-[#00749E]'>
                   {' '}
                   {t('search.defaultBlock.steps.thirdTitle')}
                 </p>
@@ -124,7 +129,7 @@ const Result: React.FC<IResult> = ({ data, handleDialect, currentRegion }) => {
                 </p>
               </motion.div>
               <motion.div variants={variants}>
-                <p className='text-xl'>
+                <p className='text-xl dark:text-[#FFC100] text-[#00749E]'>
                   {' '}
                   {t('search.defaultBlock.steps.fourTitle')}
                 </p>

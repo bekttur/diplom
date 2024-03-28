@@ -50,7 +50,6 @@ export interface ISignUp {
 	birthday: string,
 	gender: string,
 	phone: number
-  
 }
 
 export interface ILogin {
@@ -94,7 +93,7 @@ export interface IAuthUser {
   city: string,
   birthday: string,
   gender: string,
-  phone: number
+  phone: number,
 }
 
 

@@ -10,6 +10,8 @@ const Dropdown = () => {
   const { authUser } = useAuthContext();
   const { logout } = useLogout();
 
+  const { t } = useTranslation('translation');
+
   return (
     <div>
       <DropdownMenu.Root>
@@ -47,7 +49,7 @@ const Dropdown = () => {
                 </svg>
               }
             >
-              Your Profile
+              {t('menu.profile')}
             </DropdownMenu.Item>
           </Link>
           <DropdownMenu.Separator />
@@ -80,29 +82,37 @@ const Dropdown = () => {
                 </svg>
               }
             >
-              Settings
+              {t('menu.settings')}
             </DropdownMenu.Item>
           </Link>
 
           <DropdownMenu.Sub>
             {authUser?.role === 'admin' || authUser?.role === 'сonnector' ? (
-              <DropdownMenu.SubTrigger>More</DropdownMenu.SubTrigger>
+              <DropdownMenu.SubTrigger>
+                {' '}
+                {t('menu.more')}
+              </DropdownMenu.SubTrigger>
             ) : null}
             <DropdownMenu.SubContent>
               {authUser?.role === 'admin' ? (
                 <>
                   <Link to='/add/users'>
-                    <DropdownMenu.Item>Edit user…</DropdownMenu.Item>
+                    <DropdownMenu.Item>
+                      {' '}
+                      {t('menu.editUser')}…
+                    </DropdownMenu.Item>
                   </Link>
                   <Link to='/add/dialect'>
-                    <DropdownMenu.Item>Edit dialect…</DropdownMenu.Item>
+                    <DropdownMenu.Item>
+                      {t('menu.editDialect')}…
+                    </DropdownMenu.Item>
                   </Link>
                   <DropdownMenu.Separator />
                 </>
               ) : null}
 
               <Link to='/add'>
-                <DropdownMenu.Item>Add dialect…</DropdownMenu.Item>
+                <DropdownMenu.Item>{t('menu.addDialect')}…</DropdownMenu.Item>
               </Link>
             </DropdownMenu.SubContent>
           </DropdownMenu.Sub>
@@ -130,7 +140,7 @@ const Dropdown = () => {
               }
               color='red'
             >
-              Log Out
+              {t('menu.logout')}
             </DropdownMenu.Item>
           </Link>
         </DropdownMenu.Content>

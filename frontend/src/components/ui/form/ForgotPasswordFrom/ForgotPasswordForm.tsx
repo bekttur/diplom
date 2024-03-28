@@ -1,12 +1,17 @@
-import { TextField } from '@radix-ui/themes';
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
+import { AlertDialog, Button, Flex, TextField } from '@radix-ui/themes';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IForgotPassword } from '../../../../app.interface';
-import Button from '../../button/Button';
+
 import { motion } from 'framer-motion';
 import { AuthService } from '../../../../services/auth.service';
 import { Link } from 'react-router-dom';
+import ButtonUI from '../../button/Button';
 
 const ForgotPasswordForm = () => {
+  const { t } = useTranslation('translation');
+
   const {
     register,
     handleSubmit,
@@ -16,9 +21,7 @@ const ForgotPasswordForm = () => {
   });
 
   const onSubmit: SubmitHandler<IForgotPassword> = async (data) => {
-    console.log(data);
-	alert('Мы отправили Вам письмо!')
-    await AuthService.postForgotPass(data.email)
+    await AuthService.postForgotPass(data.email);
   };
 
   return (
@@ -28,13 +31,13 @@ const ForgotPasswordForm = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, type: 'spring' }}
         onSubmit={handleSubmit(onSubmit)}
-        className='h-fit px-10 py-5 flex flex-col items-center justify-center gap-5'
+        className='h-fit px-10 py-5 flex flex-col items-center justify-center gap-5 bg-[#fff] dark:bg-[#18181b] rounded-xl'
         style={{
           boxShadow: '1px 2px 10px 0px #00000026',
         }}
       >
         <h1 className='text-2xl text-[#FFC100] font-bold my-5'>
-          Forgot Password
+          {t('authorization.forgetTitle')}
         </h1>
         <TextField.Input
           color={errors?.email ? 'red' : 'indigo'}
@@ -42,12 +45,12 @@ const ForgotPasswordForm = () => {
             width: 250,
           }}
           variant='soft'
-          placeholder='Enter email...'
+          placeholder={t('authorization.email')}
           {...register('email', {
-            required: 'Email is require field',
+            required: `${t('authorization.errors.email')}`,
             pattern: {
               value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: 'Please enter valid email',
+              message: `${t('authorization.errors.validEmail')}`,
             },
           })}
         />
@@ -56,11 +59,36 @@ const ForgotPasswordForm = () => {
             {errors.email.message}
           </p>
         )}
-        <Button type='submit' title='Submit' onClick={() => {}} />
+
+        <AlertDialog.Root>
+          <AlertDialog.Trigger>
+            <ButtonUI
+              type='submit'
+              title={t('authorization.forgetButton')}
+              onClick={() => {}}
+            />
+          </AlertDialog.Trigger>
+          <AlertDialog.Content>
+            <AlertDialog.Title>
+              {t('authorization.alertForgot')}
+            </AlertDialog.Title>
+            <AlertDialog.Description size='2'>
+            {t('authorization.alertDescription')}
+            </AlertDialog.Description>
+
+            <Flex gap='3' mt='4' justify='end'>
+              <AlertDialog.Cancel>
+                <Button variant='solid' color='blue'>
+                  OK
+                </Button>
+              </AlertDialog.Cancel>
+            </Flex>
+          </AlertDialog.Content>
+        </AlertDialog.Root>
         <div>
           <p className='text-sm'>
             <Link className='text-[#0095F6]' to='/login'>
-              Log in
+              {t('authorization.linkLogin')}
             </Link>
           </p>
         </div>

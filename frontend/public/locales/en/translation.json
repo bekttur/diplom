@@ -112,6 +112,87 @@
       "region": "Region",
       "action": "Action",
       "addButton": "Add dialect"
+    },
+    "alert": {
+      "deleteTitle": "Eliminate dialect",
+      "deleteDescription": "Are you sure? This dialect word will no longer be available and will not be eligible for refund.",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "add": {
+      "addTitle": "Add a new dialect word",
+      "enter": "Enter your dialect according to the prompts below.",
+      "title": "Dialect word:",
+      "zone": "Area of application:",
+      "meaning": "Meaning:",
+      "region": "Region:",
+      "button": "Қосу"
+    },
+    "edit": {
+      "title": "Dialect word change",
+      "enter": "Change the dialect according to the prompts below.",
+      "button": "Save"
+    },
+    "role": {
+      "user": "Full name",
+      "mail": "Mail",
+      "role": "Role"
     }
+  },
+
+  "profile": {
+    "contactInfo": "Contact Information",
+    "phone": "Phone",
+    "address": "Address",
+    "email": "Email",
+    "basicInfo": "Basic Information",
+    "birthday": "Birthday",
+    "gender": "Gender",
+    "editButton": "Edit Profile",
+    "fullName": "Full name",
+    "city": "City",
+    "chooseAvatar": "Choose profile image",
+    "about": "About"
+  },
+
+  "menu": {
+    "profile": "Your profile",
+    "settings": "Settings",
+    "more": "More",
+    "editUser": "Edit user",
+    "editDialect": "Edit dialect",
+    "addDialect": "Add dialect",
+    "logout": "Log Out"
+  },
+
+  "authorization": {
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "login": "Login",
+    "fullName": "Enter full name...",
+    "address": "Enter address...",
+    "city": "Enter city...",
+    "phone": "Enter phone...",
+    "email": "Enter mail...",
+    "password": "Enter password...",
+    "confirmPassword": "Confirm password...",
+    "haveAccount": "Have an account?",
+    "linkLogin": "Log in",
+    "notAccount": "Don't have an account?",
+    "forgetPassword": "Forgot your password?",
+    "forgetTitle": "Forgot Password",
+    "forgetButton": "Submit",
+    "alertForgot": "We have sent you a letter!",
+    "alertDescription": "Please enter a new password using the link in your email!",
+    "errors": {
+      "fullName": "Full name is require field",
+      "address": "Address is require field",
+      "city": "City is require field",
+      "phone": "Phone is require field",
+      "email": "Mail is require field",
+      "password": "Password is require field",
+      "confirmPassword": "Confirm Password is require field",
+      "validEmail": "Please enter valid email"
     }
+  }
 }

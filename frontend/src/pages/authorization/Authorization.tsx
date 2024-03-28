@@ -10,12 +10,12 @@ const Login = () => {
   return (
     <>
       <div
-        className='flex items-center justify-between bg-[#1F2A38]'
+        className='flex items-center justify-between'
       >
         <div className={styles.block}>
           <div className={styles.background}></div>
         </div>
-        <div className={`${styles.form} dark:bg-[#18181b]`}>
+        <div className={`${styles.form} dark:bg-[#0F0F0F]`}>
           {location.pathname === '/login' ? (
             <LoginForm />
           ) : location.pathname === '/signup' ? (

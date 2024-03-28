@@ -1,8 +1,9 @@
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 import { TextField } from '@radix-ui/themes';
 import useLogin from '../../../../hooks/useLogin';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ILogin } from '../../../../app.interface';
-import Button from '../../button/Button';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Loading from '../../loading/Loading';
@@ -12,6 +13,7 @@ import ButtonUI from '../../button/Button';
 const LoginForm = () => {
   const { login } = useLogin();
   const [showLoading, setShowLoading] = useState(false);
+  const { t } = useTranslation('translation');
 
   const {
     register,
@@ -20,7 +22,6 @@ const LoginForm = () => {
   } = useForm<ILogin>({
     mode: 'onChange',
   });
-
 
   const onSubmit: SubmitHandler<ILogin> = async (data) => {
     console.log(data);
@@ -36,24 +37,26 @@ const LoginForm = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, type: 'spring' }}
         onSubmit={handleSubmit(onSubmit)}
-        className='h-fit px-10 py-5 flex flex-col items-center justify-center gap-5'
+        className='h-fit px-10 py-5 flex flex-col items-center justify-center gap-5 bg-[#fff] dark:bg-[#18181b] rounded-xl'
         style={{
           boxShadow: '1px 2px 10px 0px #00000026',
         }}
       >
-        <h1 className='text-2xl text-[#FFC100] font-bold my-5'>Sign In</h1>
+        <h1 className='text-2xl text-[#FFC100] font-bold my-5'>
+          {t('authorization.signIn')}
+        </h1>
         <TextField.Input
           color={errors?.email ? 'red' : 'indigo'}
           style={{
             width: 250,
           }}
           variant='soft'
-          placeholder='Enter email...'
+          placeholder={t('authorization.email')}
           {...register('email', {
-            required: 'Email is require field',
+            required: `${t('authorization.errors.email')}`,
             pattern: {
               value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: 'Please enter valid email',
+              message: `${t('authorization.errors.validEmail')}`,
             },
           })}
         />
@@ -69,9 +72,9 @@ const LoginForm = () => {
           }}
           variant='soft'
           type='password'
-          placeholder='Password...'
+          placeholder={t('authorization.password')}
           {...register('password', {
-            required: 'Password is require field',
+            required: `${t('authorization.errors.password')}`,
             maxLength: 12,
             minLength: 4,
           })}
@@ -81,17 +84,17 @@ const LoginForm = () => {
             {errors.password.message}
           </p>
         )}
-          <p className='text-xs'>
-            <Link className='text-[#385185]' to='/forgot-password'>
-            Забыли пароль?
-            </Link>
-          </p>
-        <ButtonUI type='submit' title='Login' onClick={() => {}} />
+        <p className='text-xs'>
+          <Link className='text-[#385185]' to='/forgot-password'>
+            {t('authorization.forgetTitle')}
+          </Link>
+        </p>
+        <ButtonUI type='submit' title={t('authorization.login')} onClick={() => {}} />
         <div>
           <p className='text-sm'>
-            Don't have an account?{' '}
+            {t('authorization.notAccount')}{' '}
             <Link className='text-[#0095F6]' to='/signup'>
-              Sign up
+              {t('authorization.signUp')}
             </Link>
           </p>
         </div>

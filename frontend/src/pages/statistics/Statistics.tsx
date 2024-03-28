@@ -10,7 +10,6 @@ const Statistics = ({
 }: {
   handleVisibility: (isVisible: boolean) => void;
 }) => {
-
   const { data } = useDialects();
   const [dialectCountFromRegion, setDialectCountFromRegion] = useState(0);
 
@@ -103,12 +102,12 @@ const Statistics = ({
       className='w-full h-screen flex justify-around items-end pb-10'
       style={{ scrollSnapAlign: 'center' }}
     >
-        <div className='w-2/4 h-[600px] flex items-center justify-center '>
-          <MapSvg
-            data={data}
-            setDialectCountFromRegion={setDialectCountFromRegion}
-          />
-        </div>
+      <div className='w-2/4 h-[600px] flex items-center justify-center '>
+        <MapSvg
+          data={data}
+          setDialectCountFromRegion={setDialectCountFromRegion}
+        />
+      </div>
       <div className='w-1/4 flex flex-col gap-5 items-center justify-center'>
         <div
           className='w-fit h-fit shadow-2xl rounded-2xl'
@@ -116,14 +115,7 @@ const Statistics = ({
             background: 'linear-gradient(90deg, #C33764 0%,#1D2671 100%)',
           }}
         >
-          <div
-            className='w-[420px] h-[400px] p-10 shadow-2xl rounded-2xl'
-            style={{
-              background: 'rgba(255, 255, 255, 0.75)',
-              boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-              backdropFilter: 'blur(5px)',
-            }}
-          >
+          <div className='w-[420px] h-[400px] p-10 rounded-2xl bg-white bg-opacity-75 dark:bg-black dark:bg-opacity-55 shadow-lg backdrop-blur-5'>
             <Diagram zoneCount={zoneCount} />
           </div>
         </div>

@@ -39,12 +39,10 @@ const Advantages = () => {
           variants={variants}
           initial='initial'
           whileInView='animate'
+          className='bg-[#f5f5f5] dark:bg-[#18191B] shadow'
           style={{
-            background: 'rgba(255, 255, 255, 0.23)',
             borderRadius: 16,
-            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
             backdropFilter: 'blur(11.3px)',
-
             padding: 50,
             display: 'flex',
             flexDirection: 'column',
@@ -61,7 +59,7 @@ const Advantages = () => {
             </p>
           </motion.div>
           <motion.div variants={variants} className='flex flex-col'>
-            <img width={45} src='/kz-icon2.svg' />
+            <img width={45} src='/other/kz-icon2.svg' />
             <p className='text-lg'>
               {' '}
               {t('search.lastBlock.advantages.secondTitle')}

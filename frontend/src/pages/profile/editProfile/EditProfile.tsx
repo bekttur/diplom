@@ -1,3 +1,5 @@
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 import { Avatar, Button, Checkbox, TextField } from '@radix-ui/themes';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { User } from '../../../app.interface';
@@ -17,6 +19,8 @@ const EditProfile = ({
 }: {
   handleVisibility: (isVisible: boolean) => void;
 }) => {
+  const { t } = useTranslation('translation');
+
   const { authUser } = useAuthContext();
   const navigate = useNavigate();
 
@@ -194,13 +198,13 @@ const EditProfile = ({
                   className='w-[250px] h-fit py-2 border border-gray-600 rounded-3xl mt-3'
                   onClick={handleChooseImageClick}
                 >
-                  Choose profile image
+                  {t('profile.chooseAvatar')}
                 </button>
               </div>
             </div>
             <div className='w-2/3 flex flex-col gap-8'>
               <div className='flex flex-col gap-1'>
-                <p>Full name: </p>
+                <p>{t('profile.fullName')}: </p>
                 <TextField.Input
                   style={{
                     height: 50,
@@ -217,7 +221,7 @@ const EditProfile = ({
               </div>
               <div className='flex gap-5'>
                 <div className='w-full'>
-                  <p>Email: </p>
+                  <p>{t('profile.email')}: </p>
                   <TextField.Input
                     style={{
                       height: 50,
@@ -237,7 +241,7 @@ const EditProfile = ({
                   />
                 </div>
                 <div className='w-full'>
-                  <p>Phone: </p>
+                  <p>{t('profile.phone')}: </p>
                   <TextField.Input
                     style={{
                       height: 50,
@@ -253,7 +257,7 @@ const EditProfile = ({
               </div>
               <div className='flex gap-5'>
                 <div className='w-full'>
-                  <p>Birthday: </p>
+                  <p>{t('profile.birthday')}: </p>
                   <TextField.Input
                     style={{
                       height: 50,
@@ -268,7 +272,7 @@ const EditProfile = ({
                   />
                 </div>
                 <div className='w-full'>
-                  <p className='mb-3'>Gender: </p>
+                  <p className='mb-3'>{t('profile.gender')}: </p>
                   <div className='flex justify-center gap-2 px-2'>
                     <label className='flex items-center gap-2 w-full'>
                       <Checkbox name='gender' value={'male'} />
@@ -284,11 +288,11 @@ const EditProfile = ({
             </div>
           </div>
           <div>
-            <h2 className='text-xl font-semibold'>About</h2>
+            <h2 className='text-xl font-semibold'>{t('profile.about')}</h2>
             <hr />
             <div className='flex gap-5 mt-5'>
               <div className='w-full'>
-                <p>Address: </p>
+                <p>{t('profile.address')}: </p>
                 <TextField.Input
                   style={{
                     height: 50,
@@ -304,7 +308,7 @@ const EditProfile = ({
                 />
               </div>
               <div className='w-full'>
-                <p>City: </p>
+                <p>{t('profile.city')}: </p>
                 <TextField.Input
                   style={{
                     height: 50,
@@ -329,9 +333,9 @@ const EditProfile = ({
               onClick={() => navigate('/profile')}
               style={{ cursor: 'pointer' }}
             >
-              Cancel
+              {t('control.alert.cancel')}
             </Button>
-            <ButtonUI title='Save' type='submit' />
+            <ButtonUI title={t('control.edit.button')} type='submit' />
           </div>
         </form>
       </div>

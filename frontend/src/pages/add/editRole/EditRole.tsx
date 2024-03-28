@@ -1,3 +1,5 @@
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 import { Avatar, Table } from '@radix-ui/themes';
 import { useUsers } from '../../../hooks/useUsers';
 import Select from 'react-select';
@@ -10,6 +12,8 @@ import { UsersService } from '../../../services/users.service';
 import ButtonUI from '../../../components/ui/button/Button';
 
 const EditRole = () => {
+  const { t } = useTranslation('translation');
+
   const { data } = useUsers();
 
   const [usersData, setUsersData] = useState<IUserData[]>([]);
@@ -62,7 +66,7 @@ const EditRole = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       className='w-fit h-fit flex flex-col items-center justify-center gap-5 shadow bg-white dark:bg-transparent px-20 py-5 rounded-lg'
-      style={{scrollSnapAlign: 'center'}}
+      style={{ scrollSnapAlign: 'center' }}
     >
       <div>
         <Table.Root style={{ maxHeight: 400, overflowY: 'auto' }}>
@@ -70,10 +74,16 @@ const EditRole = () => {
             <Table.Row>
               <Table.ColumnHeaderCell width={50}></Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell width={300}>
-                Full name
+                {t('control.role.user')}
               </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell width={350}>Email</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell width={200}>Role</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell width={350}>
+                {' '}
+                {t('control.role.mail')}
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell width={200}>
+                {' '}
+                {t('control.role.role')}
+              </Table.ColumnHeaderCell>
             </Table.Row>
           </Table.Header>
 
@@ -89,57 +99,63 @@ const EditRole = () => {
                 const fallbackChar = user.fullname.charAt(0);
 
                 return (
-                    <Table.Row key={user._id}>
-                      <Table.RowHeaderCell>
-                        {avatarSrc ? (
-                          <Avatar
-                            size='2'
-                            src={avatarSrc}
-                            fallback={fallbackChar}
-                          />
-                        ) : (
-                          <Avatar
-                            size='2'
-                            // color='amber'
-                            fallback={fallbackChar}
-                          />
-                        )}
-                      </Table.RowHeaderCell>
+                  <Table.Row key={user._id}>
+                    <Table.RowHeaderCell>
+                      {avatarSrc ? (
+                        <Avatar
+                          size='2'
+                          src={avatarSrc}
+                          fallback={fallbackChar}
+                        />
+                      ) : (
+                        <Avatar
+                          size='2'
+                          // color='amber'
+                          fallback={fallbackChar}
+                        />
+                      )}
+                    </Table.RowHeaderCell>
 
-                      <Table.Cell color='sky'>
-                        <span className='text-[#00749E] dark:text-[#76C7F0]'>
-                          {user.fullname}
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell>
-                        <span className='text-[#65676F] dark:text-[#B4B9C0]'>
-                          {user.email}
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell>
-                        {user.email === 'bekttur@mail.ru' ? (
-                          <p>admin</p>
-                        ) : (
-                          <Select
-                            classNamePrefix='role-select'
-                            onChange={(newValue) =>
-                              onChange(newValue, user._id)
-                            }
-                            value={user.role}
-                            // @ts-ignore
-                            options={userRoleOptions}
-                            placeholder={user.role}
-                          />
-                        )}
-                      </Table.Cell>
-                    </Table.Row>
+                    <Table.Cell color='sky'>
+                      <span className='text-[#00749E] dark:text-[#76C7F0]'>
+                        {user.fullname}
+                      </span>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <span className='text-[#65676F] dark:text-[#B4B9C0]'>
+                        {user.email}
+                      </span>
+                    </Table.Cell>
+                    <Table.Cell>
+                      {user.email === 'bekttur@mail.ru' ? (
+                        <p>admin</p>
+                      ) : (
+                        <Select
+                          classNamePrefix='role-select'
+                          menuPortalTarget={document.body}
+                          styles={{
+                            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                          }}
+                          onChange={(newValue) => onChange(newValue, user._id)}
+                          value={user.role}
+                          // @ts-ignore
+                          options={userRoleOptions}
+                          placeholder={user.role}
+                        />
+                      )}
+                    </Table.Cell>
+                  </Table.Row>
                 );
               })}
           </Table.Body>
         </Table.Root>
       </div>
       <div>
-        <ButtonUI title='Save' type='submit' onClick={onClick} />
+        <ButtonUI
+          title={t('control.edit.button')}
+          type='submit'
+          onClick={onClick}
+        />
       </div>
     </motion.div>
   );

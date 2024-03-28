@@ -86,14 +86,14 @@ const Contact = () => {
         <motion.div>
           <img
             className='w-[100px] h-[100px] rounded-full'
-            src='/me.jpg'
+            src='/other/me.jpg'
           />
           <h3 className='text-xl my-3'>{t('aboutUs.myWord')}</h3>
           <p className='text-sm'>{t('aboutUs.description')}</p>
         </motion.div>
       </motion.div>
       <motion.div
-        className={styles.formContainer}
+        className={`${styles.formContainer} dark:bg-transparent`}
         variants={variants}
         initial='initial'
         whileInView='animate'

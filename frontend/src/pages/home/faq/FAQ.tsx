@@ -44,7 +44,7 @@ const FAQ = () => {
         {questions.map((q) => (
           <motion.div variants={variants} key={q.id} className='mb-4 last:mb-0'>
             <button
-              className='w-full text-left text-xl focus:outline-none p-4 bg-[#f2f2f25f] dark:bg-[#5c5c5c58] rounded-lg shadow-md flex items-center justify-between'
+              className='w-full text-left text-xl focus:outline-none p-4 bg-[#f2f2f25f] dark:bg-[#5c5c5c1c] rounded-lg shadow-md flex items-center justify-between'
               onClick={() =>
                 setActiveQuestion(activeQuestion === q.id ? null : q.id)
               }

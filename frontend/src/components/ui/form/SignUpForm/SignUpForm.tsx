@@ -3,12 +3,14 @@ import { ISignUp } from '../../../../app.interface';
 import useSignUp from '../../../../hooks/useSignUp';
 import { TextField } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
-import Button from '../../button/Button';
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import ButtonUI from '../../button/Button';
 
 const SignUpForm = () => {
   const { signup } = useSignUp();
+  const { t } = useTranslation('translation');
 
   const {
     register,
@@ -30,21 +32,23 @@ const SignUpForm = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, type: 'spring' }}
         onSubmit={handleSubmit(onSubmit)}
-        className='w-150 h-fit px-10 py-5 flex flex-col items-center justify-center gap-5'
+        className='w-150 h-fit px-10 py-5 flex flex-col items-center justify-center gap-5 bg-[#fff] dark:bg-[#18181b] rounded-xl'
         style={{
           boxShadow: '1px 2px 10px 0px #00000026',
         }}
       >
-        <h1 className='text-2xl text-[#FFC100] font-bold my-5'>Sign Up</h1>
+        <h1 className='text-2xl text-[#FFC100] font-bold my-5'>
+          {t('authorization.signUp')}
+        </h1>
         <TextField.Input
           color={errors?.fullname ? 'red' : 'indigo'}
           style={{
             width: 320,
           }}
           variant='soft'
-          placeholder='Enter full name...'
+          placeholder={t('authorization.fullName')}
           {...register('fullname', {
-            required: 'Fullname is require field',
+            required: `${t('authorization.errors.fullName')}`,
           })}
         />
         {errors?.fullname && (
@@ -52,7 +56,7 @@ const SignUpForm = () => {
             style={{
               color: 'red',
               fontSize: '0.6rem',
-              marginTop: -20
+              marginTop: -20,
             }}
           >
             {errors.fullname.message}
@@ -67,9 +71,9 @@ const SignUpForm = () => {
               }}
               type='text'
               variant='soft'
-              placeholder='Enter address...'
+              placeholder={t('authorization.address')}
               {...register('address', {
-                required: 'Address is require field',
+                required: `${t('authorization.errors.address')}`,
                 minLength: 4,
               })}
             />
@@ -79,7 +83,6 @@ const SignUpForm = () => {
                   color: 'red',
                   fontSize: '0.6rem',
                   position: 'sticky',
-                  
                 }}
               >
                 {errors.address.message}
@@ -94,9 +97,9 @@ const SignUpForm = () => {
               }}
               type='text'
               variant='soft'
-              placeholder='Enter city...'
+              placeholder={t('authorization.city')}
               {...register('city', {
-                required: 'City is require field',
+                required: `${t('authorization.errors.city')}`,
                 maxLength: 12,
                 minLength: 4,
               })}
@@ -107,7 +110,6 @@ const SignUpForm = () => {
                   color: 'red',
                   fontSize: '0.6rem',
                   position: 'sticky',
-                  
                 }}
               >
                 {errors.city.message}
@@ -137,7 +139,6 @@ const SignUpForm = () => {
                   color: 'red',
                   fontSize: '0.6rem',
                   position: 'sticky',
-                  
                 }}
               >
                 {errors.birthday.message}
@@ -165,7 +166,6 @@ const SignUpForm = () => {
                   color: 'red',
                   fontSize: '0.6rem',
                   position: 'sticky',
-                  
                 }}
               >
                 {errors.gender.message}
@@ -182,9 +182,9 @@ const SignUpForm = () => {
               }}
               type='text'
               variant='soft'
-              placeholder='Enter phone...'
+              placeholder={t('authorization.phone')}
               {...register('phone', {
-                required: 'Phone is require field',
+                required: `${t('authorization.errors.phone')}`,
                 maxLength: 12,
                 minLength: 4,
               })}
@@ -195,7 +195,6 @@ const SignUpForm = () => {
                   color: 'red',
                   fontSize: '0.6rem',
                   position: 'sticky',
-                  
                 }}
               >
                 {errors.phone.message}
@@ -209,12 +208,12 @@ const SignUpForm = () => {
                 width: 150,
               }}
               variant='soft'
-              placeholder='Enter email...'
+              placeholder={t('authorization.email')}
               {...register('email', {
-                required: 'Email is require field',
+                required: `${t('authorization.errors.email')}`,
                 pattern: {
                   value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: 'Please enter valid email',
+                  message: `${t('authorization.errors.validEmail')}`,
                 },
               })}
             />
@@ -224,7 +223,6 @@ const SignUpForm = () => {
                   color: 'red',
                   fontSize: '0.6rem',
                   position: 'sticky',
-                  
                 }}
               >
                 {errors.email.message}
@@ -241,9 +239,9 @@ const SignUpForm = () => {
               }}
               variant='soft'
               type='password'
-              placeholder='Enter password...'
+              placeholder={t('authorization.password')}
               {...register('password', {
-                required: 'Password is require field',
+                required: `${t('authorization.errors.password')}`,
                 maxLength: 12,
                 minLength: 4,
               })}
@@ -254,7 +252,6 @@ const SignUpForm = () => {
                   color: 'red',
                   fontSize: '0.6rem',
                   position: 'sticky',
-                  
                 }}
               >
                 {errors.password.message}
@@ -269,9 +266,11 @@ const SignUpForm = () => {
               }}
               type='password'
               variant='soft'
-              placeholder='Confirm password...'
+              placeholder={t('authorization.confirmPassword')}
               {...register('confirmPassword', {
-                required: 'Confirm password is require field',
+                required: `${t(
+                  'authorization.errors.confirmPassword'
+                )}`,
                 maxLength: 12,
                 minLength: 4,
               })}
@@ -282,7 +281,6 @@ const SignUpForm = () => {
                   color: 'red',
                   fontSize: '0.6rem',
                   position: 'sticky',
-                  
                 }}
               >
                 {errors.confirmPassword.message}
@@ -291,13 +289,17 @@ const SignUpForm = () => {
           </div>
         </div>
 
-        <ButtonUI type='submit' title='Sign up' onClick={() => {}} />
+        <ButtonUI
+          type='submit'
+          title={t('authorization.signUp')}
+          onClick={() => {}}
+        />
 
         <div>
           <p className='text-sm'>
-            Have an account?{' '}
+            {t('authorization.haveAccount')}{' '}
             <Link className='text-[#0095F6]' to='/login'>
-              Log in
+              {t('authorization.linkLogin')}
             </Link>
           </p>
         </div>

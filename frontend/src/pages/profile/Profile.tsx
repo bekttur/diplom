@@ -1,7 +1,8 @@
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 import { MapPin } from 'lucide-react';
 import UserInfo from '../../components/screen/userInfo/UserInfo';
 import { useAuthContext } from '../../context/AuthContext';
-import { Table } from '@radix-ui/themes';
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 
@@ -10,7 +11,10 @@ const Profile = ({
 }: {
   handleVisibility: (isVisible: boolean) => void;
 }) => {
+  const { t } = useTranslation('translation');
+
   const { authUser } = useAuthContext();
+  console.log(authUser);
 
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -54,114 +58,53 @@ const Profile = ({
               <p>{authUser?.city}</p>
             </div>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <h2>History</h2>
-            <div className='mt-5'>
-              <Table.Root style={{ maxHeight: 400, overflowY: 'auto' }}>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.ColumnHeaderCell>Full name</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
-                  </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                  <Table.Row>
-                    <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-                    <Table.Cell>danilo@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                    <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
-                    <Table.Cell>zahra@example.com</Table.Cell>
-                    <Table.Cell>Admin</Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                    <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
-                    <Table.Cell>jasper@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-                <Table.Body>
-                  <Table.Row>
-                    <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-                    <Table.Cell>danilo@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                    <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
-                    <Table.Cell>zahra@example.com</Table.Cell>
-                    <Table.Cell>Admin</Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                    <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
-                    <Table.Cell>jasper@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-                <Table.Body>
-                  <Table.Row>
-                    <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-                    <Table.Cell>danilo@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                    <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
-                    <Table.Cell>zahra@example.com</Table.Cell>
-                    <Table.Cell>Admin</Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                    <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
-                    <Table.Cell>jasper@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-                <Table.Body>
-                  <Table.Row>
-                    <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-                    <Table.Cell>danilo@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                    <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
-                    <Table.Cell>zahra@example.com</Table.Cell>
-                    <Table.Cell>Admin</Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                    <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
-                    <Table.Cell>jasper@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-                <Table.Body>
-                  <Table.Row>
-                    <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-                    <Table.Cell>danilo@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                    <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
-                    <Table.Cell>zahra@example.com</Table.Cell>
-                    <Table.Cell>Admin</Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                    <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
-                    <Table.Cell>jasper@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              </Table.Root>
+          <div className='w-full bg-opacity-20 bg-white dark:bg-[#18191B] backdrop-blur-5 shadow rounded-lg border border-opacity-30 dark:border-none p-10'>
+            <p className='text-[12px] mb-1 leading-[15px] text-gray-400'>
+              {t('profile.contactInfo')}
+            </p>
+            <div className='w-1/1 text-[16px] leading-10'>
+              <div className='flex items-start justify-between'>
+                <p> {t('profile.phone')}</p>
+                <p className='text-[#00749E] dark:text-[#76C7F0]'>
+                  {authUser?.phone}
+                </p>
+              </div>
+              <hr className='bg-[#e1e1e1c8] dark:bg-[#8585851e] border-none' />
+              <div className='w-full flex items-start justify-between flex-wrap'>
+                <p> {t('profile.address')}</p>
+                <p className='text-[#00749E] dark:text-[#76C7F0]'>
+                  {authUser?.address}
+                </p>
+              </div>
+              <hr className='bg-[#e1e1e1c8] dark:bg-[#8585851e] border-none' />
+              <div className='flex items-start justify-between'>
+                <p> {t('profile.email')}</p>
+                <p className='text-[#00749E] dark:text-[#76C7F0]'>
+                  {authUser?.email}
+                </p>
+              </div>
+              <hr className='bg-[#e1e1e1c8] dark:bg-[#8585851e] border-none' />
+            </div>
+          </div>
+          <div className='w-full bg-opacity-20 bg-white dark:bg-[#18191B] backdrop-blur-5 shadow rounded-lg border border-opacity-30 dark:border-none p-10'>
+            <p className='text-[12px] mb-1 leading-[15px] text-gray-400'>
+              {t('profile.basicInfo')}
+            </p>
+            <div className='w-[100%] text-[16px] leading-10'>
+              <div className='flex items-start justify-between'>
+                <p> {t('profile.birthday')}</p>
+                <p className='text-[#00749E] dark:text-[#76C7F0]'>
+                  {authUser?.birthday}
+                </p>
+              </div>
+              <hr className='bg-[#e1e1e1c8] dark:bg-[#8585851e] border-none'/>
+              <div className='w-full flex items-start justify-between flex-wrap'>
+                <p> {t('profile.gender')}</p>
+                <p className='text-[#00749E] dark:text-[#76C7F0]'>
+                  {authUser?.gender}
+                </p>
+              </div>
+              <hr className='bg-[#e1e1e1c8] dark:bg-[#8585851e] border-none'/>
             </div>
           </div>
         </div>

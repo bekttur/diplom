@@ -38,7 +38,7 @@ const StatisticsNumber: React.FC<IStatisticsNumber> = ({
 
   return (
     <div className='w-full flex gap-5 text-center justify-center'>
-      <div className='w-[200px] h-[180px] flex justify-center items-center flex-col gap-5 bg-[#DFEAFD] rounded-xl shadow-xl'>
+      <div className='w-[200px] h-[180px] flex justify-center items-center flex-col gap-5 bg-[#DFEAFD] dark:bg-[#0B3954] rounded-xl shadow-xl'>
         <div>
           <h1 className='text-5xl'>
             {!!data && <Number n={dialectCountFromRegion} />}
@@ -48,7 +48,7 @@ const StatisticsNumber: React.FC<IStatisticsNumber> = ({
           <p>{t('statistic.numberBlock.title')}</p>
         </div>
       </div>
-      <div className='w-[200px] h-[180px] flex justify-center items-center flex-col gap-5 bg-[#DFEAFD] rounded-xl shadow-xl'>
+      <div className='w-[200px] h-[180px] flex justify-center items-center flex-col gap-5 bg-[#DFEAFD] dark:bg-[#0B3954] rounded-xl shadow-xl'>
         <div>
           <h1 className='text-5xl flex'>
             <Number n={percent} /> <span>%</span>

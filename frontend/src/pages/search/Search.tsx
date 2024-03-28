@@ -94,7 +94,11 @@ const Search = ({
         </div>
       </div>
       <div id='result' ref={resultRef}>
-        <Result data={data} handleDialect={handleDialect} currentRegion={currentRegion} />
+        <Result
+          data={data}
+          handleDialect={handleDialect}
+          currentRegion={currentRegion}
+        />
       </div>
       <Advantages />
     </>

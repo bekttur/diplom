@@ -1,3 +1,5 @@
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 import { Dialog, TextArea, TextField } from '@radix-ui/themes';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -8,6 +10,8 @@ import { DialectService } from '../../../../services/dialect.service';
 import ButtonUI from '../../../../components/ui/button/Button';
 
 const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
+  const { t } = useTranslation('translation');
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -48,7 +52,7 @@ const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
           <div className='flex flex-col gap-5'>
             <div className='w-full flex items-start justify-between'>
               <div>
-                <h2 className='mb-2'>Title: </h2>
+                <h2 className='mb-2'>{t('control.add.title')}</h2>
                 <TextField.Input
                   color='indigo'
                   style={{
@@ -69,7 +73,7 @@ const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
                 />
               </div>
               <div>
-                <h2 className='mb-2'>Өңір: </h2>
+                <h2 className='mb-2'>{t('control.add.zone')}</h2>
                 <TextField.Input
                   color='indigo'
                   style={{
@@ -91,7 +95,7 @@ const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
               </div>
             </div>
             <div>
-              <h2 className='mb-2'>Мағынасы:</h2>
+              <h2 className='mb-2'>{t('control.add.meaning')}</h2>
               <div className='flex items-center justify-between gap-10'>
                 <TextArea
                   color='indigo'
@@ -147,7 +151,7 @@ const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
               </div>
             </div>
             <div>
-              <h2 className='mb-2'>Қолданылу аймағы:</h2>
+              <h2 className='mb-2'>{t('control.add.region')}</h2>
               <div className='flex items-center justify-between gap-10'>
                 <TextArea
                   color='indigo'
@@ -204,7 +208,11 @@ const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
             </div>
             <div className='w-full flex items-center justify-center'>
               <Dialog.Close>
-                <ButtonUI title='Save' type='submit' onClick={updateData} />
+                <ButtonUI
+                  title={t('control.edit.button')}
+                  type='submit'
+                  onClick={updateData}
+                />
               </Dialog.Close>
             </div>
           </div>

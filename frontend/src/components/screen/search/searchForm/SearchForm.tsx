@@ -22,6 +22,8 @@ const SearchForm: React.FC<ISearchForm> = ({
     setShowLoading(true);
     setHandleDialect(data.search);
     setTimeout(() => setShowLoading(false), 800);
+    
+    
   };
 
   useEffect(() => {

@@ -76,13 +76,13 @@ const Main = ({
           style={{ transform: 'rotate(310deg) scale(10)', zIndex: 2 }}
         >
           <motion.div
-            className='h-[100px] w-[100px] bg-[url(./ornament3.svg)] dark:bg-[url(./ornament4.svg)]
+            className='h-[100px] w-[100px] bg-[url(./other/ornament3.svg)] dark:bg-[url(./other/ornament4.svg)]
             bg-no-repeat'
             style={{ y: yBg }}
           ></motion.div>
         </div>
         <div
-          className='w-full h-screen absolute bg-[url(./background.png)] bg-[length:50%] bg-bottom bg-no-repeat'
+          className='w-full h-screen absolute bg-[url(./other/background.png)] bg-[length:50%] bg-bottom bg-no-repeat'
           style={{ zIndex: 3 }}
         ></div>
 

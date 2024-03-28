@@ -1,3 +1,5 @@
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { IAllDialect } from '../../../app.interface';
 import { useCreateDialect } from '../../../hooks/useCreateDialect';
@@ -18,6 +20,8 @@ const clearData = {
 };
 
 const AddDialect = () => {
+  const { t } = useTranslation('translation');
+
   const [dialectData, setDialectData] = useState<IAllDialect>(clearData);
 
   const { mutate } = useCreateDialect(clearData, setDialectData);
@@ -40,7 +44,7 @@ const AddDialect = () => {
         <div className='flex flex-col gap-5'>
           <div className='w-full flex items-start justify-between'>
             <div>
-              <h2 className='mb-2'>Title: </h2>
+              <h2 className='mb-2'>{t('control.add.title')}</h2>
               <TextField.Input
                 color='indigo'
                 style={{
@@ -58,7 +62,7 @@ const AddDialect = () => {
               />
             </div>
             <div>
-              <h2 className='mb-2'>Өңір: </h2>
+              <h2 className='mb-2'>{t('control.add.zone')}</h2>
               <TextField.Input
                 color='indigo'
                 style={{
@@ -77,7 +81,7 @@ const AddDialect = () => {
             </div>
           </div>
           <div>
-            <h2 className='mb-2'>Мағынасы:</h2>
+            <h2 className='mb-2'>{t('control.add.meaning')}</h2>
             <div className='flex items-center justify-between gap-10'>
               <TextArea
                 color='indigo'
@@ -133,7 +137,7 @@ const AddDialect = () => {
             </div>
           </div>
           <div>
-            <h2 className='mb-2'>Қолданылу аймағы:</h2>
+            <h2 className='mb-2'>{t('control.add.region')}</h2>
             <div className='flex items-center justify-between gap-10'>
               <TextArea
                 color='indigo'
@@ -189,7 +193,11 @@ const AddDialect = () => {
             </div>
           </div>
           <div className='w-full flex items-center justify-center'>
-            <ButtonUI title='Add' type='submit' onClick={() => {}} />
+            <ButtonUI
+              title={t('control.add.button')}
+              type='submit'
+              onClick={() => {}}
+            />
           </div>
         </div>
       </motion.form>

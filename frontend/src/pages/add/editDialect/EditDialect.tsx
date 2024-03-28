@@ -90,9 +90,9 @@ const EditDialect = () => {
                         </Dialog.Trigger>
 
                         <Dialog.Content style={{ maxWidth: 1100 }}>
-                          <Dialog.Title>Edit Dialect</Dialog.Title>
+                          <Dialog.Title>{t('control.edit.title')}</Dialog.Title>
                           <Dialog.Description size='2' mb='4'>
-                            Make changes to your dialect.
+                            {t('control.edit.enter')}
                           </Dialog.Description>
                           <div className='w-full flex items-center justify-center'>
                             <EditDialectPage dialect={item} />
@@ -105,17 +105,17 @@ const EditDialect = () => {
                           <Trash2 width={16} color='#F56565' cursor='pointer' />
                         </AlertDialog.Trigger>
                         <AlertDialog.Content style={{ maxWidth: 450 }}>
-                          <AlertDialog.Title>Revoke access</AlertDialog.Title>
+                          <AlertDialog.Title>
+                            {t('control.alert.deleteTitle')}
+                          </AlertDialog.Title>
                           <AlertDialog.Description size='2'>
-                            Are you sure? This application will no longer be
-                            accessible and any existing sessions will be
-                            expired.
+                            {t('control.alert.deleteDescription')}
                           </AlertDialog.Description>
 
                           <Flex gap='3' mt='4' justify='end'>
                             <AlertDialog.Cancel>
                               <Button variant='soft' color='gray'>
-                                Cancel
+                                {t('control.alert.cancel')}
                               </Button>
                             </AlertDialog.Cancel>
                             <AlertDialog.Action>
@@ -124,7 +124,7 @@ const EditDialect = () => {
                                 color='red'
                                 onClick={() => deleteData(item._id, item.title)}
                               >
-                                Delete
+                                {t('control.alert.delete')}
                               </Button>
                             </AlertDialog.Action>
                           </Flex>
@@ -144,9 +144,9 @@ const EditDialect = () => {
           </Dialog.Trigger>
 
           <Dialog.Content style={{ maxWidth: 1100 }}>
-            <Dialog.Title>Add Dialect</Dialog.Title>
+            <Dialog.Title>{t('control.add.addTitle')}</Dialog.Title>
             <Dialog.Description size='2' mb='4'>
-              Make your dialect.
+              {t('control.add.enter')}
             </Dialog.Description>
             <div className='w-full flex items-center justify-center'>
               <AddDialect />
