@@ -13,20 +13,31 @@ const Footer = () => {
   const { t } = useTranslation('translation');
 
   return (
-    <div className='w-full h-fit p-5 flex items-center justify-center flex-col gap-5 bg-[#fff] dark:bg-[#18191B] text-[#18181b] dark:text-white border-t-2 border-[#F5F5F5] dark:border-[#FFC100]' style={{scrollSnapAlign: 'center'}}>
+    <div
+      className='w-full h-fit p-5 flex items-center justify-center flex-col gap-5 bg-[#fff] dark:bg-[#18191B] text-[#18181b] dark:text-white border-t-2 border-[#F5F5F5] dark:border-[#FFC100]'
+      style={{ scrollSnapAlign: 'center' }}
+    >
       <div>
         <ul className='flex items-center justify-between gap-3 cursor-pointer'>
           <li>
-            <Facebook />
+            <a target='_blank' href='https://www.facebook.com/bektturr/'>
+              <Facebook />
+            </a>
           </li>
           <li>
-            <WhatsApp />
+            <a target='_blank' href='https://wa.me/77054799199'>
+              <WhatsApp />
+            </a>
           </li>
           <li>
-            <Instagram />
+            <a target='_blank' href='https://instagram.com/bekttur'>
+              <Instagram />
+            </a>
           </li>
           <li>
-            <Telegram />
+            <a target='_blank' href='https://t.me/bekttur'>
+              <Telegram />
+            </a>
           </li>
           {/* <li>
             <Tiktok />
@@ -48,7 +59,7 @@ const Footer = () => {
       </div>
       <div className='w-full flex items-center justify-between'>
         <div>
-          <p>© 2024 Dialect Inc. All rights reserved.</p>
+          <p>{t('footer.rights')}</p>
           <div className='flex'>
             <SelectLngs />
           </div>

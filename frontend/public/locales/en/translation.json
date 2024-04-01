@@ -194,5 +194,9 @@
       "confirmPassword": "Confirm Password is require field",
       "validEmail": "Please enter valid email"
     }
+  },
+
+  "footer": {
+    "rights": "© 2024 Dialect Inc. All rights reserved."
   }
 }
