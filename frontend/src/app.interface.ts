@@ -4,11 +4,9 @@ export interface IAllDialect {
   kzMeaning: string;
   ruMeaning: string;
   enMeaning: string;
-  kzRegion: string;
-  enRegion: string;
-  ruRegion: string;
+  region: string[];
   hide: boolean;
-  zone: string;
+  zone: string[];
   __v?: number;
 }
 
@@ -129,4 +127,11 @@ export interface Item {
 
 export interface HomeProps {
   handleVisibility: (isVisible: boolean) => void;
+}
+
+export interface IChangePassword {
+  email: string,
+  oldPassword: any;
+  newPassword: any;
+  confirmPassword: any;
 }

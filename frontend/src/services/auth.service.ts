@@ -22,7 +22,6 @@ export const AuthService = {
     birthday: string,
     gender: string,
     phone: number,
-    history: any[]
   ) {
     return await axios.post(`${APP_BACKEND_IP}/api/auth/signup`, {
       fullname,
@@ -34,8 +33,7 @@ export const AuthService = {
       city,
       birthday,
       gender,
-      phone,
-      history
+      phone
     });
   },
 

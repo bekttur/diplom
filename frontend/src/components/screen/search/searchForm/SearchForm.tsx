@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ISearch, ISearchForm } from '../../../../app.interface';
-import SelectOption from '../../../ui/select/SelectOption';
+import SelectOption from '../../../ui/select/SelectSearch';
 import Loading from '../../../ui/loading/Loading';
 import { Button, TextField } from '@radix-ui/themes';
 // @ts-ignore
@@ -22,8 +22,6 @@ const SearchForm: React.FC<ISearchForm> = ({
     setShowLoading(true);
     setHandleDialect(data.search);
     setTimeout(() => setShowLoading(false), 800);
-    
-    
   };
 
   useEffect(() => {

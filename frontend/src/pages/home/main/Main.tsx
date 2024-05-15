@@ -101,9 +101,7 @@ const Main = ({
             {t('home.title')}
           </h1>
           <p className='text-[#656565] dark:text-[#D1D5DB]  leading-relaxed font-thin'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-            officiis dolores cum optio natus nobis ipsum, placeat molestiae ipsa
-            voluptates.
+          {t('home.description')}
           </p>
         </motion.div>
       </div>

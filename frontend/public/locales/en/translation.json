@@ -11,6 +11,7 @@
   "home": {
     "titleBlue": "Domestic Kazakh dialect",
     "title": "platform",
+    "description": "Through dialects, we connect the past with the present, give life to historical sounds and build bridges of understanding between generations.",
     "advantages": {
       "title": "According to the project",
       "firstTitle": "Importance of the National Corps",
@@ -31,6 +32,9 @@
     "title": "Enter the desired dialect word!",
     "placeholder": "regions...",
     "button": "Search",
+    "regionResult": "Region:",
+    "zoneResult": "Area of application:",
+    "kazakhstan": "Kazakhstan",
     "zone": {
       "west": "West",
       "east": "East",
@@ -39,7 +43,7 @@
       "center": "Center"
     },
     "defaultBlock": {
-      "title": "How does it work?",
+      "title": "Guide to Dialects",
       "description": "Ease of word search on the site.",
       "steps": {
         "firstTitle": "First step",
@@ -126,7 +130,7 @@
       "zone": "Area of application:",
       "meaning": "Meaning:",
       "region": "Region:",
-      "button": "Қосу"
+      "button": "Add"
     },
     "edit": {
       "title": "Dialect word change",
@@ -152,7 +156,15 @@
     "fullName": "Full name",
     "city": "City",
     "chooseAvatar": "Choose profile image",
-    "about": "About"
+    "about": "About",
+    "changePassword": "Change password",
+    "changePassDescription": "Make changes to your password.",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "enterOldPass": "Enter the old password...",
+    "enterNewPass": "Enter a new password...",
+    "enterConfirmPass": "Enter confirm password..."
   },
 
   "menu": {
@@ -184,6 +196,9 @@
     "forgetButton": "Submit",
     "alertForgot": "We have sent you a letter!",
     "alertDescription": "Please enter a new password using the link in your email!",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
     "errors": {
       "fullName": "Full name is require field",
       "address": "Address is require field",
@@ -198,5 +213,34 @@
 
   "footer": {
     "rights": "© 2024 Dialect Inc. All rights reserved."
-  }
+  },
+
+  "faq": {
+    "firstQ": "What can I do as a regular user on the platform?",
+    "firstAn": "As a user, you have access to search through our extensive database of dialect words, view statistics on dialect usage, and learn about the Kazakh language's rich variety.",
+    "secondQ": "What additional capabilities does a corrector have?",
+    "secondAn": "Correctors play a crucial role in maintaining the accuracy of our database. They can add new words, suggest edits to existing entries, and delete inaccuracies. They also have the ability to view detailed statistics to help guide their corrections.",
+    "thirdQ": "As an admin, how do I manage user roles on the platform?",
+    "thirdAn": "As the admin, you can assign and manage roles for users through the control panel. This includes granting corrector roles to trusted users and overseeing all changes made to ensure the integrity of the database.",
+    "fourQ": "How can I contribute to the database if I have a new dialect word or correction?",
+    "fourAn": "If you have a contribution, you can submit it for review through our interactive interface. As a regular user, your submission will be reviewed by a corrector, while correctors have the ability to make live changes to the database."
+  },
+
+  "month": {
+    "january": "January,",
+    "february": "February,",
+    "march": "March,",
+    "april": "April,",
+    "may": "May,",
+    "june": "June,",
+    "july": "July,",
+    "august": "August,",
+    "september": "September,",
+    "october": "October,",
+    "november": "November,",
+    "december": "December,"
+  },
+
+  "year": ""
+
 }

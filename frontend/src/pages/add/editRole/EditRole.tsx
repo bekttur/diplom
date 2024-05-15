@@ -53,10 +53,10 @@ const EditRole = () => {
         await UsersService.postEditRole(_id, role);
         console.log('success');
       });
-      toast.success('Успешно изменено');
+      toast.success('Сәтті сақталды!)');
     } catch (error) {
       console.error('Error editing user role:', error);
-      toast.error(`Ошибка!!! ${error}`);
+      toast.error(`Қате! ${error}`);
     }
   };
 

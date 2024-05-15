@@ -7,10 +7,29 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import ButtonUI from '../../button/Button';
+import Select from 'react-select';
+import { gender } from './gender.options';
+import { useState } from 'react';
 
 const SignUpForm = () => {
   const { signup } = useSignUp();
   const { t } = useTranslation('translation');
+  const [currentGender, setCurrentGender] = useState(['']);
+
+  const getValue = () => {
+    return currentGender.length > 0
+      ? gender.find((c) => c.value === currentGender[0])
+      : '';
+  };
+
+  const translatedOptions = gender.map((option) => ({
+    ...option,
+    label: t(option.label),
+  }));
+
+  const onChange = (newValue: any) => {
+    setCurrentGender(newValue.value);
+  };
 
   const {
     register,
@@ -21,6 +40,9 @@ const SignUpForm = () => {
   });
 
   const onSubmit: SubmitHandler<ISignUp> = async (data) => {
+    if (currentGender) {
+      data.gender = currentGender.toString();
+    }
     console.log(data);
     await signup({ ...data, role: 'user' });
   };
@@ -123,6 +145,7 @@ const SignUpForm = () => {
               color={errors?.birthday ? 'red' : 'indigo'}
               style={{
                 width: 150,
+                height: 38
               }}
               type='date'
               variant='soft'
@@ -146,7 +169,7 @@ const SignUpForm = () => {
             )}
           </div>
           <div className='flex flex-col items-center justify-center'>
-            <TextField.Input
+            {/* <TextField.Input
               color={errors?.gender ? 'red' : 'indigo'}
               style={{
                 width: 150,
@@ -159,7 +182,15 @@ const SignUpForm = () => {
                 maxLength: 12,
                 minLength: 4,
               })}
+            /> */}
+            <Select
+              classNamePrefix='custom-select-gender'
+              onChange={onChange}
+              value={getValue()}
+              options={translatedOptions}
+              placeholder={t('authorization.gender')}
             />
+
             {errors?.gender && (
               <p
                 style={{
@@ -268,9 +299,7 @@ const SignUpForm = () => {
               variant='soft'
               placeholder={t('authorization.confirmPassword')}
               {...register('confirmPassword', {
-                required: `${t(
-                  'authorization.errors.confirmPassword'
-                )}`,
+                required: `${t('authorization.errors.confirmPassword')}`,
                 maxLength: 12,
                 minLength: 4,
               })}

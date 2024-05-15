@@ -4,7 +4,7 @@ import { TextField } from '@radix-ui/themes';
 import useLogin from '../../../../hooks/useLogin';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ILogin } from '../../../../app.interface';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Loading from '../../loading/Loading';
 import { useState } from 'react';

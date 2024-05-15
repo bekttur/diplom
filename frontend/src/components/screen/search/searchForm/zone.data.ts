@@ -1,25 +1,25 @@
 import { IOption } from '../../../../app.interface';
 
 
-export const options: IOption[] = [
+export const zone: IOption[] = [
 	{
-	  value: 'Батыс',
+	  value: 'west',
 	  label: 'search.zone.west',
 	},
 	{
-	  value: 'Солтүстік',
+	  value: 'north',
 	  label: 'search.zone.north',
 	},
 	{
-	  value: 'Шығыс',
+	  value: 'east',
 	  label: 'search.zone.east',
 	},
 	{
-	  value: 'Оңтүстік',
+	  value: 'south',
 	  label: 'search.zone.south',
 	},
 	{
-	  value: 'Орталық',
+	  value: 'center',
 	  label: 'search.zone.center',
 	}
   ];

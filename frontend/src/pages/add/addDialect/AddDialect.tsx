@@ -1,30 +1,41 @@
 // @ts-ignore
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
-import { IAllDialect } from '../../../app.interface';
+import { useEffect, useState } from 'react';
+import { IAllDialect, IOption } from '../../../app.interface';
 import { useCreateDialect } from '../../../hooks/useCreateDialect';
 import { TextArea, TextField } from '@radix-ui/themes';
 import { motion } from 'framer-motion';
 import ButtonUI from '../../../components/ui/button/Button';
+import { regions } from './region.data';
+import SelectDialect from '../../../components/ui/select/SelectDialect';
+import { zone } from '../../../components/screen/search/searchForm/zone.data';
 
 const clearData = {
   title: '',
   kzMeaning: '',
   enMeaning: '',
   ruMeaning: '',
-  kzRegion: '',
-  enRegion: '',
-  ruRegion: '',
+  region: [],
   hide: false,
-  zone: '',
+  zone: [],
 };
 
 const AddDialect = () => {
   const { t } = useTranslation('translation');
 
   const [dialectData, setDialectData] = useState<IAllDialect>(clearData);
+  const [currentRegions, setCurrentRegions] = useState(['']);
+  const [currentZones, setCurrentZones] = useState(['']);
 
   const { mutate } = useCreateDialect(clearData, setDialectData);
+
+  useEffect(() => {
+    setDialectData((prev) => ({ ...prev, region: currentRegions }));
+  }, [currentRegions]);
+
+  useEffect(() => {
+    setDialectData((prev) => ({ ...prev, zone: currentZones }));
+  }, [currentZones]);
 
   const addDialectHandler = async (e: any) => {
     e.preventDefault();
@@ -42,7 +53,7 @@ const AddDialect = () => {
         className='flex flex-col bg-white dark:bg-transparent px-12 py-5 rounded-lg'
       >
         <div className='flex flex-col gap-5'>
-          <div className='w-full flex items-start justify-between'>
+          <div className='w-full flex items-start justify-between gap-10'>
             <div>
               <h2 className='mb-2'>{t('control.add.title')}</h2>
               <TextField.Input
@@ -62,21 +73,21 @@ const AddDialect = () => {
               />
             </div>
             <div>
+              <h2 className='mb-2'>{t('control.add.region')}</h2>
+              <div className='flex items-center justify-between gap-10'>
+                <SelectDialect
+                  array={regions}
+                  currentValue={currentRegions}
+                  setCurrentValue={setCurrentRegions}
+                />
+              </div>
+            </div>
+            <div>
               <h2 className='mb-2'>{t('control.add.zone')}</h2>
-              <TextField.Input
-                color='indigo'
-                style={{
-                  width: 300,
-                  padding: '20px 2px',
-                }}
-                variant='soft'
-                value={dialectData.zone}
-                onChange={(e) =>
-                  setDialectData((prev) => ({ ...prev, zone: e.target.value }))
-                }
-                placeholder='қаз...'
-                required={true}
-                minLength={2}
+              <SelectDialect
+                array={zone}
+                currentValue={currentZones}
+                setCurrentValue={setCurrentZones}
               />
             </div>
           </div>
@@ -128,62 +139,6 @@ const AddDialect = () => {
                   setDialectData((prev) => ({
                     ...prev,
                     ruMeaning: e.target.value,
-                  }))
-                }
-                minLength={2}
-                required={true}
-                placeholder='рус...'
-              />
-            </div>
-          </div>
-          <div>
-            <h2 className='mb-2'>{t('control.add.region')}</h2>
-            <div className='flex items-center justify-between gap-10'>
-              <TextArea
-                color='indigo'
-                style={{
-                  width: 300,
-                }}
-                variant='soft'
-                value={dialectData.kzRegion}
-                onChange={(e) =>
-                  setDialectData((prev) => ({
-                    ...prev,
-                    kzRegion: e.target.value,
-                  }))
-                }
-                minLength={2}
-                required={true}
-                placeholder='қаз...'
-              />
-              <TextArea
-                color='indigo'
-                style={{
-                  width: 300,
-                }}
-                variant='soft'
-                value={dialectData.enRegion}
-                onChange={(e) =>
-                  setDialectData((prev) => ({
-                    ...prev,
-                    enRegion: e.target.value,
-                  }))
-                }
-                minLength={2}
-                required={true}
-                placeholder='eng...'
-              />
-              <TextArea
-                color='indigo'
-                style={{
-                  width: 300,
-                }}
-                variant='soft'
-                value={dialectData.ruRegion}
-                onChange={(e) =>
-                  setDialectData((prev) => ({
-                    ...prev,
-                    ruRegion: e.target.value,
                   }))
                 }
                 minLength={2}

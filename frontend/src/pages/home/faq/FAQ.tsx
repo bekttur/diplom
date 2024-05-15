@@ -4,21 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { questions } from './faq.data';
 // @ts-ignore
 import { useTranslation } from 'react-i18next';
+import { variants } from '../../../components/ui/variants/variants';
 
-const variants = {
-  initial: {
-    y: 80,
-    opacity: 0,
-  },
-  animate: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      staggerChildren: 0.2,
-    },
-  },
-};
 
 const FAQ = () => {
   const { t } = useTranslation('translation');
@@ -49,7 +36,7 @@ const FAQ = () => {
                 setActiveQuestion(activeQuestion === q.id ? null : q.id)
               }
             >
-              {q.question}
+              {t(q.question)}
               {activeQuestion === q.id ? <MinusCircle color='#3E5F7D' /> : <PlusCircle color='#3E5F7D' />}
             </button>
             <AnimatePresence>
@@ -60,7 +47,7 @@ const FAQ = () => {
                   exit={{ opacity: 0, height: 0 }}
                   className='mt-2 text-[#656565] dark:text-[#D1D5DB] ml-4'
                 >
-                  <p>{q.answer}</p>
+                  <p>{t(q.answer)}</p>
                 </motion.div>
               )}
             </AnimatePresence>

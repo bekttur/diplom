@@ -35,6 +35,32 @@ const Profile = ({
       }
     };
   }, [handleVisibility]);
+  const months = [
+    'month.january',
+    'month.february',
+    'month.march',
+    'month.april',
+    'month.may',
+    'month.june',
+    'month.july',
+    'month.august',
+    'month.september',
+    'month.october',
+    'month.november',
+    'month.december',
+  ];
+
+  const formatDate = (
+    dateString: string | undefined,
+    t: (key: string) => string
+  ) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = t(months[date.getMonth()]);
+    const year = date.getFullYear();
+    return `${day} ${month} ${year} ${t('year')}`;
+  };
 
   return (
     <motion.div
@@ -94,17 +120,21 @@ const Profile = ({
               <div className='flex items-start justify-between'>
                 <p> {t('profile.birthday')}</p>
                 <p className='text-[#00749E] dark:text-[#76C7F0]'>
-                  {authUser?.birthday}
+                  {formatDate(authUser?.birthday, t)}
                 </p>
               </div>
-              <hr className='bg-[#e1e1e1c8] dark:bg-[#8585851e] border-none'/>
+              <hr className='bg-[#e1e1e1c8] dark:bg-[#8585851e] border-none' />
               <div className='w-full flex items-start justify-between flex-wrap'>
                 <p> {t('profile.gender')}</p>
                 <p className='text-[#00749E] dark:text-[#76C7F0]'>
-                  {authUser?.gender}
+                  {authUser?.gender === 'male' ? (
+                    <p>{t('authorization.male')}</p>
+                  ) : (
+                    <p>{t('authorization.female')}</p>
+                  )}
                 </p>
               </div>
-              <hr className='bg-[#e1e1e1c8] dark:bg-[#8585851e] border-none'/>
+              <hr className='bg-[#e1e1e1c8] dark:bg-[#8585851e] border-none' />
             </div>
           </div>
         </div>

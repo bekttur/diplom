@@ -4,10 +4,13 @@ import { Dialog, TextArea, TextField } from '@radix-ui/themes';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { IAllDialect } from '../../../../app.interface';
+import { IAllDialect, IOption } from '../../../../app.interface';
 import toast from 'react-hot-toast';
 import { DialectService } from '../../../../services/dialect.service';
 import ButtonUI from '../../../../components/ui/button/Button';
+import Select, { OnChangeValue } from 'react-select';
+import { regions } from '../../addDialect/region.data';
+import { zone } from '../../../../components/screen/search/searchForm/zone.data';
 
 const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
   const { t } = useTranslation('translation');
@@ -23,7 +26,50 @@ const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
     }
   }, [id, dialect]);
 
-  console.log(dialectData);
+  const translatedRegions = regions.map((item) => ({
+    ...item,
+    label: t(item.label),
+  }));
+
+  const translatedZones = zone.map((item) => ({
+    ...item,
+    label: t(item.label),
+  }));
+
+  const getValueRegion = () => {
+    if (!!dialectData && !!dialectData.region) {
+      return dialectData.region.map((region) => ({
+        value: region,
+        label: t(`statistic.regions.${region}`),
+      }));
+    }
+    return [];
+  };
+
+  const getValueZone = () => {
+    if (!!dialectData && !!dialectData.zone) {
+      return dialectData.zone.map((item) => ({
+        value: item,
+        label: t(`search.zone.${item}`),
+      }));
+    }
+    return [];
+  };
+  
+
+  const onChangeRegion = (newValue: OnChangeValue<IOption, boolean>) => {
+    setDialectData((prev: IAllDialect | null) => ({
+      ...(prev as IAllDialect),
+      region: (newValue as IOption[]).map((v) => v.value),
+    }));
+  };
+
+  const onChangeZone = (newValue: OnChangeValue<IOption, boolean>) => {
+    setDialectData((prev: IAllDialect | null) => ({
+      ...(prev as IAllDialect),
+      zone: (newValue as IOption[]).map((v) => v.value),
+    }));
+  };
 
   const updateData = () => {
     try {
@@ -31,7 +77,7 @@ const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
         throw new Error('Dialect data is null');
       }
       DialectService.updateDialect(dialectData);
-      toast.success('Успешно обновлено!');
+      toast.success('Сәтті жаңартылды!');
       navigate('/add');
     } catch (error) {
       toast.error('Ошибка при обновлении');
@@ -73,25 +119,28 @@ const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
                 />
               </div>
               <div>
+                <h2 className='mb-2'>{t('control.add.region')}</h2>
+                <div className='flex items-center justify-between gap-10'>
+                  <Select
+                    classNamePrefix='custom-dialect-select'
+                    onChange={onChangeRegion}
+                    options={translatedRegions}
+                    defaultValue={getValueRegion()}
+                    isMulti
+                  />
+                </div>
+              </div>
+              <div>
                 <h2 className='mb-2'>{t('control.add.zone')}</h2>
-                <TextField.Input
-                  color='indigo'
-                  style={{
-                    width: 300,
-                    padding: '20px 2px',
-                  }}
-                  variant='soft'
-                  required={true}
-                  minLength={2}
-                  placeholder='қаз...'
-                  value={dialectData.zone}
-                  onChange={(e) => {
-                    setDialectData((prev: IAllDialect | null) => ({
-                      ...(prev as IAllDialect),
-                      zone: e.target.value,
-                    }));
-                  }}
-                />
+                <div className='flex items-center justify-between gap-10'>
+                  <Select
+                    classNamePrefix='custom-dialect-select'
+                    onChange={onChangeZone}
+                    options={translatedZones}
+                    defaultValue={getValueZone()}
+                    isMulti
+                  />
+                </div>
               </div>
             </div>
             <div>
@@ -145,62 +194,6 @@ const EditDialectPage = ({ dialect }: { dialect: IAllDialect }) => {
                     setDialectData((prev: IAllDialect | null) => ({
                       ...(prev as IAllDialect),
                       ruMeaning: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
-            </div>
-            <div>
-              <h2 className='mb-2'>{t('control.add.region')}</h2>
-              <div className='flex items-center justify-between gap-10'>
-                <TextArea
-                  color='indigo'
-                  style={{
-                    width: 300,
-                  }}
-                  variant='soft'
-                  minLength={2}
-                  required={true}
-                  placeholder='қаз...'
-                  value={dialectData.kzRegion}
-                  onChange={(e) => {
-                    setDialectData((prev: IAllDialect | null) => ({
-                      ...(prev as IAllDialect),
-                      kzRegion: e.target.value,
-                    }));
-                  }}
-                />
-                <TextArea
-                  color='indigo'
-                  style={{
-                    width: 300,
-                  }}
-                  variant='soft'
-                  minLength={2}
-                  required={true}
-                  placeholder='eng...'
-                  value={dialectData.enRegion}
-                  onChange={(e) => {
-                    setDialectData((prev: IAllDialect | null) => ({
-                      ...(prev as IAllDialect),
-                      enRegion: e.target.value,
-                    }));
-                  }}
-                />
-                <TextArea
-                  color='indigo'
-                  style={{
-                    width: 300,
-                  }}
-                  variant='soft'
-                  minLength={2}
-                  required={true}
-                  placeholder='рус...'
-                  value={dialectData.ruRegion}
-                  onChange={(e) => {
-                    setDialectData((prev: IAllDialect | null) => ({
-                      ...(prev as IAllDialect),
-                      ruRegion: e.target.value,
                     }));
                   }}
                 />

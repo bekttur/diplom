@@ -3,11 +3,9 @@ import CardUser from '../card/CardUser';
 import { Link } from 'react-router-dom';
 // @ts-ignore
 import { useTranslation } from 'react-i18next';
-import { useAuthContext } from '../../../context/AuthContext';
 import useLogout from '../../../hooks/useLogout';
 
 const Dropdown = () => {
-  const { authUser } = useAuthContext();
   const { logout } = useLogout();
 
   const { t } = useTranslation('translation');
@@ -86,7 +84,7 @@ const Dropdown = () => {
             </DropdownMenu.Item>
           </Link>
 
-          <DropdownMenu.Sub>
+          {/* <DropdownMenu.Sub>
             {authUser?.role === 'admin' || authUser?.role === 'сonnector' ? (
               <DropdownMenu.SubTrigger>
                 {' '}
@@ -115,7 +113,7 @@ const Dropdown = () => {
                 <DropdownMenu.Item>{t('menu.addDialect')}…</DropdownMenu.Item>
               </Link>
             </DropdownMenu.SubContent>
-          </DropdownMenu.Sub>
+          </DropdownMenu.Sub> */}
 
           <DropdownMenu.Separator />
           <Link to='/login' onClick={logout}>

@@ -23,7 +23,7 @@
 
     &--menu-is-open {
       width: 200px;
-      border-color: #FFC100 !important;
+      border-color: #ffc100 !important;
     }
   }
 
@@ -62,7 +62,7 @@
     padding: 2px;
 
     &--menu-is-open {
-      border-color: #FFC100 !important;
+      border-color: #ffc100 !important;
     }
   }
 
@@ -113,6 +113,178 @@
   &__menu {
     background-color: #292a2e !important;
     // box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 10px;
+    color: rgba(white, 0.6) !important;
+    animation: scaleIn 0.2s ease-in-out;
+  }
+
+  &__option {
+    cursor: pointer !important;
+    &--is-focused {
+      background-color: lighten(#292a2e, 8%) !important;
+    }
+  }
+
+  &-container {
+    > div {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    &:hover,
+    &--menu-is-open {
+      border-color: #ced4da !important;
+    }
+  }
+}
+
+.custom-dialect-select {
+  &__control {
+    width: 300px;
+    background-color: transparent !important;
+    font-size: 13px !important;
+    border-radius: 3px !important;
+    background-color: #edf2fe !important;
+    box-shadow: none !important;
+    border: 2px solid #edf2fe !important;
+    padding: 2px;
+
+    &--menu-is-open {
+      border-color: #ffc100 !important;
+    }
+  }
+
+  &__value-container {
+    padding: 0 !important;
+    cursor: text !important;
+  }
+
+  &__input-container {
+    color: #1f1f1f !important;
+  }
+
+  &__indicator-separator {
+    display: none !important;
+  }
+
+  &__indicators {
+    cursor: pointer !important;
+  }
+
+  &__indicator {
+    color: #66676e !important;
+
+    &:hover {
+      color: #999aa5 !important;
+    }
+  }
+
+  &__multi-value {
+    background-color: rgba(#999aa5, 0.6) !important;
+    border-radius: 0.5rem !important;
+  }
+
+  &__multi-value__label {
+    font-size: 80% !important;
+    color: rgba(white, 0.7) !important;
+  }
+
+  &__multi-value__remove {
+    color: rgba(white, 0.8) !important;
+    &:hover {
+      background-color: transparent !important;
+      color: white !important;
+    }
+  }
+
+  &__menu {
+    background-color: #f3f3f3 !important;
+    color: rgba(rgb(22, 22, 22), 1) !important;
+    font-size: 12px !important;
+    animation: scaleIn 0.2s ease-in-out;
+  }
+
+  &__option {
+    cursor: pointer !important;
+    &--is-focused {
+      background-color: lighten(#cacaca, 8%) !important;
+    }
+  }
+
+  &-container {
+    > div {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    &:hover,
+    &--menu-is-open {
+      border-color: #ced4da !important;
+    }
+  }
+}
+
+.custom-select-gender {
+  &__control {
+    width: 150px;
+    height: 20px;
+    background-color: #edf2fe !important;
+    border-radius: 5px !important;
+    box-shadow: none !important;
+    border: none !important;
+    font-size: 14px !important;
+    padding-left: 8px;
+
+    &--menu-is-open {
+      border-color: #ffc100 !important;
+    }
+  }
+
+  &__value-container {
+    padding: 0 !important;
+    cursor: text !important;
+  }
+
+  &__input-container {
+    color: #999aa5 !important;
+  }
+
+  &__indicator-separator {
+    display: none !important;
+  }
+
+  &__indicators {
+    cursor: pointer !important;
+  }
+
+  &__indicator {
+    color: #66676e !important;
+
+    &:hover {
+      color: #999aa5 !important;
+    }
+  }
+
+  &__multi-value {
+    background-color: rgba(#999aa5, 0.6) !important;
+    border-radius: 0.5rem !important;
+  }
+
+  &__multi-value__label {
+    font-size: 80% !important;
+    color: rgba(white, 0.7) !important;
+  }
+
+  &__multi-value__remove {
+    color: rgba(white, 0.8) !important;
+
+    &:hover {
+      background-color: transparent !important;
+      color: white !important;
+    }
+  }
+
+  &__menu {
+    background-color: #292a2e !important;
     color: rgba(white, 0.6) !important;
     animation: scaleIn 0.2s ease-in-out;
   }

@@ -42,12 +42,18 @@ function App() {
             path='about-us'
             element={<AboutUs handleVisibility={handleVisibility} />}
           />
-          <Route path='statistics' element={<Statistics handleVisibility={handleVisibility} />} />
+          <Route
+            path='statistics'
+            element={<Statistics handleVisibility={handleVisibility} />}
+          />
           <Route
             path='search'
             element={<Search handleVisibility={handleVisibility} />}
           />
-          <Route path='add' element={<AddPage handleVisibility={handleVisibility} />} />
+          <Route
+            path='add'
+            element={<AddPage handleVisibility={handleVisibility} />}
+          />
           <Route
             path='login'
             element={authUser ? <Navigate to='/' /> : <Login />}
@@ -60,8 +66,14 @@ function App() {
             path='forgot-password'
             element={authUser ? <Navigate to='/' /> : <Login />}
           />
-          <Route path='profile' element={<Profile handleVisibility={handleVisibility} />} />
-          <Route path='edit-profile/' element={<EditProfile handleVisibility={handleVisibility} />} />
+          <Route
+            path='profile'
+            element={<Profile handleVisibility={handleVisibility} />}
+          />
+          <Route
+            path='edit-profile/'
+            element={<EditProfile handleVisibility={handleVisibility} />}
+          />
         </Route>
       </Routes>
       <Toaster />

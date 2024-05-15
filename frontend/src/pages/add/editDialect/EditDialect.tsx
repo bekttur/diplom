@@ -13,7 +13,7 @@ import AddDialect from '../addDialect/AddDialect';
 import ButtonUI from '../../../components/ui/button/Button';
 
 const EditDialect = () => {
-  const { t, i18n } = useTranslation('translation');
+  const { t } = useTranslation('translation');
 
   const { data } = useDialects();
 
@@ -37,16 +37,13 @@ const EditDialect = () => {
     }
   };
 
-  const getRegionValue = (item: any) => {
-    // Проверяем текущий язык
-    const currentLanguage = i18n.language;
-
-    // Если текущий язык - казахский, возвращаем item.kzRegion
-    if (currentLanguage === 'kz') {
-      return item.kzRegion;
+  const getRegionValue = (item: IAllDialect) => {
+    if (!!item.region) {
+      return item.region
+        .map((region) => t(`statistic.regions.${region}`))
+        .join(', ');
     }
-    // В противном случае возвращаем item.enRegion
-    return item.enRegion;
+    return '';
   };
 
   return (
@@ -148,7 +145,7 @@ const EditDialect = () => {
             <Dialog.Description size='2' mb='4'>
               {t('control.add.enter')}
             </Dialog.Description>
-            <div className='w-full flex items-center justify-center'>
+            <div className='w-full flex items-start justify-center'>
               <AddDialect />
             </div>
           </Dialog.Content>

@@ -16,3 +16,4 @@ const Home = ({ handleVisibility }: HomeProps) => {
 };
 
 export default Home;
+

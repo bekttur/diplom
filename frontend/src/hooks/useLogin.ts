@@ -9,19 +9,17 @@ const useLogin = () => {
   const { setAuthUser } = useAuthContext();
 
   const login = async (email: string, password: string) => {
-
-	const success = handleInputErrors(email, password);
-	  if (!success) return;
+    const success = handleInputErrors(email, password);
+    if (!success) return;
 
     setLoading(true);
 
     try {
-      const data = await AuthService.postLogin(email, password)
+      const data = await AuthService.postLogin(email, password);
 
       console.log(data.data);
-	  localStorage.setItem('user', JSON.stringify(data.data))
-	  setAuthUser(data.data)
-
+      localStorage.setItem('user', JSON.stringify(data.data));
+      setAuthUser(data.data);
     } catch (error) {
       toast.error(`Error: ${error}`);
     } finally {
@@ -29,23 +27,16 @@ const useLogin = () => {
     }
   };
 
-  return {loading, login}
+  return { loading, login };
 };
 
 export default useLogin;
 
-
-
-
-
-
 function handleInputErrors(email: string, password: string) {
-
-	if (!email || !password) {
-	  toast.error('Поля не заполнено');
-	  return false;
-	}
-
-	return true;
+  if (!email || !password) {
+    toast.error('Поля не заполнено');
+    return false;
   }
-  
+
+  return true;
+}

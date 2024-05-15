@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import { options } from '../../screen/search/searchForm/option.data';
+import { zone } from '../../screen/search/searchForm/zone.data';
 // @ts-ignore
 import { useTranslation } from 'react-i18next';
 
@@ -17,11 +17,11 @@ const SelectOption: React.FC<SelectOptionProps> = ({
 
   const getValue = () => {
     return currentRegion.length > 0
-      ? options.find((c) => c.value === currentRegion[0])
+      ? zone.find((c) => c.value === currentRegion[0])
       : '';
   };
 
-  const translatedOptions = options.map(option => ({
+  const translatedOptions = zone.map(option => ({
     ...option,
     label: t(option.label) 
   }));

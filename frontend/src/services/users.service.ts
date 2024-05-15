@@ -9,12 +9,26 @@ export const UsersService = {
 
   async postEditRole(_id: string, role: string) {
     return await axios.put(`${APP_BACKEND_IP}/update/userRole`, {
-		_id,
-		role,
-	  });
+      _id,
+      role,
+    });
   },
 
   async getImage() {
     return await axios.get(`${APP_BACKEND_IP}/get-image`);
-  }
+  },
+
+  async putChangePassword(
+    email: string,
+    oldPassword: any,
+    newPassword: any,
+    confirmPassword: any
+  ) {
+    return await axios.put(`${APP_BACKEND_IP}/update/password`, {
+      email,
+      oldPassword,
+      newPassword,
+      confirmPassword,
+    });
+  },
 };

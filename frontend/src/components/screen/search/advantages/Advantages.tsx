@@ -3,21 +3,7 @@ import { useTranslation } from 'react-i18next';
 import ButtonUI from '../../../ui/button/Button';
 import { HandHeart, UserRoundCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-const variants = {
-  initial: {
-    y: 80,
-    opacity: 0,
-  },
-  animate: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      staggerChildren: 0.2,
-    },
-  },
-};
+import { variants } from '../../../ui/variants/variants';
 
 const Advantages = () => {
   const { t } = useTranslation('translation');
@@ -31,7 +17,7 @@ const Advantages = () => {
         <div className='flex flex-col gap-5'>
           <h1 className='text-6xl'>{t('search.lastBlock.title')}</h1>
           <p>{t('search.lastBlock.description')}</p>
-          <ButtonUI title={t('search.lastBlock.button')} />
+
         </div>
       </div>
       <div className='w-1/2 flex flex-col items-center justify-center'>

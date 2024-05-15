@@ -37,21 +37,6 @@ const generateTokenAndSetCookie = (userId, response) => {
   });
 };
 
-// function algolia
-async function searchWithAlgolia(search) {
-  try {
-    const client = algoliasearch(
-      process.env.APPLICATION_ID,
-      process.env.API_KEY
-    );
-    const index = client.initIndex(process.env.INDEX_NAME);
-    const found = await index.search(search);
-    return found;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 // SIGN UP
 app.post('/api/auth/signup', async (request, response) => {
   try {
@@ -177,9 +162,6 @@ app.put('/update/user', async (request, response) => {
   }
 });
 
-
-
-
 ///upload avatar user
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -234,6 +216,31 @@ app.get('/get-image', async (request, response) => {
     });
   } catch (error) {
     response.json({ status: error });
+  }
+});
+
+////// change password user
+app.put('/update/password', async (request, response) => {
+  console.log(request.body);
+  const { email, oldPassword, newPassword, confirmPassword } = request.body;
+  const user = await User.findOne({ email });
+
+  if (newPassword === confirmPassword && user.password === oldPassword) {
+    try {
+      await User.updateOne(
+        { email: email },
+        {
+          $set: {
+            password: newPassword,
+          },
+        }
+      );
+      return response.json({ status: 'ok', data: 'updated password' });
+    } catch (error) {
+      return response.json({ status: 'error', data: error });
+    }
+  } else {
+    return response.json({ status: 'пароли не совпадает' });
   }
 });
 
@@ -292,9 +299,7 @@ app.put('/update/dialect', async (request, response) => {
           kzMeaning: dialectData.kzMeaning,
           enMeaning: dialectData.enMeaning,
           ruMeaning: dialectData.ruMeaning,
-          kzRegion: dialectData.kzRegion,
-          enRegion: dialectData.enRegion,
-          ruRegion: dialectData.ruRegion,
+          region: dialectData.region,
           zone: dialectData.zone,
         },
       }

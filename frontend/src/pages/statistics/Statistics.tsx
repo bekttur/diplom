@@ -14,7 +14,7 @@ const Statistics = ({
   const [dialectCountFromRegion, setDialectCountFromRegion] = useState(0);
 
   useEffect(() => {
-    if (!!data && !!data.length) {
+    if (data && data.length) {
       setDialectCountFromRegion(data.length);
     }
   }, [data]);
@@ -40,37 +40,39 @@ const Statistics = ({
   useEffect(() => {
     if (Array.isArray(data)) {
       data.forEach((item: IAllDialect) => {
-        switch (item.zone) {
-          case 'Батыс':
-            setZoneCount((prevCount) => ({
-              ...prevCount,
-              westCount: prevCount.westCount + 1,
-            }));
-            break;
-          case 'Шығыс':
-            setZoneCount((prevCount) => ({
-              ...prevCount,
-              eastCount: prevCount.eastCount + 1,
-            }));
-            break;
-          case 'Солтүстік':
-            setZoneCount((prevCount) => ({
-              ...prevCount,
-              northCount: prevCount.northCount + 1,
-            }));
-            break;
-          case 'Оңтүстік':
-            setZoneCount((prevCount) => ({
-              ...prevCount,
-              southCount: prevCount.southCount + 1,
-            }));
-            break;
-          default:
-            setZoneCount((prevCount) => ({
-              ...prevCount,
-              centerCount: prevCount.centerCount + 1,
-            }));
-        }
+        item.zone.forEach((zone: string) => {
+          switch (zone) {
+            case 'west':
+              setZoneCount((prevCount) => ({
+                ...prevCount,
+                westCount: prevCount.westCount + 1,
+              }));
+              break;
+            case 'east':
+              setZoneCount((prevCount) => ({
+                ...prevCount,
+                eastCount: prevCount.eastCount + 1,
+              }));
+              break;
+            case 'north':
+              setZoneCount((prevCount) => ({
+                ...prevCount,
+                northCount: prevCount.northCount + 1,
+              }));
+              break;
+            case 'south':
+              setZoneCount((prevCount) => ({
+                ...prevCount,
+                southCount: prevCount.southCount + 1,
+              }));
+              break;
+            default:
+              setZoneCount((prevCount) => ({
+                ...prevCount,
+                centerCount: prevCount.centerCount + 1,
+              }));
+          }
+        });
       });
     }
   }, [data]);

@@ -1,6 +1,6 @@
 // @ts-ignore
 import { useTranslation } from 'react-i18next';
-import { Avatar, Button, Checkbox, TextField } from '@radix-ui/themes';
+import { Avatar, Button, TextField } from '@radix-ui/themes';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { User } from '../../../app.interface';
 import { useAuthContext } from '../../../context/AuthContext';
@@ -13,6 +13,7 @@ import { UsersService } from '../../../services/users.service';
 import { APP_BACKEND_IP } from '../../../../appconfig';
 import { useNavigate } from 'react-router-dom';
 import ButtonUI from '../../../components/ui/button/Button';
+import ChangePassword from '../changePassword/ChangePassword';
 
 const EditProfile = ({
   handleVisibility,
@@ -89,7 +90,7 @@ const EditProfile = ({
       fullname: authUser?.fullname,
       email: authUser?.email,
       phone: authUser?.phone,
-      birthday: authUser?.birthday,
+      birthday: authUser?.birthday ? new Date(authUser.birthday).toISOString().split('T')[0] : '',
       gender: authUser?.gender,
       address: authUser?.address,
       city: authUser?.city,
@@ -271,18 +272,8 @@ const EditProfile = ({
                     placeholder='Birthday'
                   />
                 </div>
-                <div className='w-full'>
-                  <p className='mb-3'>{t('profile.gender')}: </p>
-                  <div className='flex justify-center gap-2 px-2'>
-                    <label className='flex items-center gap-2 w-full'>
-                      <Checkbox name='gender' value={'male'} />
-                      <p>Male</p>
-                    </label>
-                    <label className='flex items-center gap-2 w-full'>
-                      <Checkbox name='gender' value={'female'} />
-                      <p>Female</p>
-                    </label>
-                  </div>
+                <div className='w-full pt-6'>
+                  <ChangePassword />
                 </div>
               </div>
             </div>
@@ -329,9 +320,12 @@ const EditProfile = ({
             <Button
               size='3'
               type='button'
-              color='gray'
               onClick={() => navigate('/profile')}
-              style={{ cursor: 'pointer' }}
+              style={{
+                cursor: 'pointer',
+                backgroundColor: '#F0F0F3',
+                color: '#5A5E67',
+              }}
             >
               {t('control.alert.cancel')}
             </Button>

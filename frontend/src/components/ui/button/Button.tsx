@@ -1,5 +1,6 @@
+import { Button } from '@radix-ui/themes';
 import React from 'react';
-import { Button } from '@radix-ui/themes'
+
 
 interface ButtonProps {
   title: string;
@@ -7,12 +8,21 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const ButtonUI: React.FC<ButtonProps> = ({ title, type, onClick }) => {
+const ButtonUI: React.ForwardRefExoticComponent<
+  ButtonProps & React.RefAttributes<HTMLButtonElement>
+> = React.forwardRef(({ title, type, onClick }, ref) => {
   return (
-    <Button size='3' style={{cursor: 'pointer'}} color='amber' type={type} onClick={onClick}>
-       <span className='text-white dark:text-black'>{title}</span>
+    <Button
+      ref={ref}
+      size='3'
+      style={{ cursor: 'pointer' }}
+      color='amber'
+      type={type}
+      onClick={onClick}
+    >
+      <span className='text-white dark:text-black'>{title}</span>
     </Button>
   );
-};
+});
 
 export default ButtonUI;

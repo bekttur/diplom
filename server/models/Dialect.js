@@ -5,11 +5,9 @@ const dialectSchema = mongoose.Schema({
 	kzMeaning: String,
 	enMeaning: String,
 	ruMeaning: String, 
-	kzRegion: String,
-	enRegion: String,
-	ruRegion: String,
+	region: Array,
 	hide: Boolean,
-	zone: String
+	zone: Array
 })
 
 module.exports = mongoose.model("dialects", dialectSchema);

@@ -15,34 +15,33 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
   const { t } = useTranslation('translation');
 
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
-  const [nameRegion, setNameRegion] = useState<string | null>(null);
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!!data && !!data.length && !!selectedPath) {
+    if (data && data.length && selectedRegion) {
+      let count = 0;
       data.forEach((item) => {
-        if (!!nameRegion) {
-          if (item.kzRegion && item.kzRegion.includes(nameRegion)) {
-            setDialectCountFromRegion((prevCount) => prevCount + 1);
-          }
+        if (item.region && item.region.includes(selectedRegion)) {
+          count++;
         }
       });
+      setDialectCountFromRegion(count);
     }
-  }, [data, selectedPath, setDialectCountFromRegion]);
+  }, [data, selectedRegion, setDialectCountFromRegion]);
 
   const handlePathClick = (event: React.MouseEvent<SVGElement, MouseEvent>) => {
     const pathId = event.currentTarget.id;
-    const nameId = (event.currentTarget as SVGElement).getAttribute('name');
+    const regionName = (event.currentTarget as SVGElement).getAttribute('name');
     setSelectedPath(pathId);
-    setNameRegion(nameId);
+    setSelectedRegion(regionName);
     setDialectCountFromRegion(0);
   };
 
-  console.log(nameRegion);
-
   const exitRegion = () => {
-    if (!!data && !!data.length) {
-      setSelectedPath(null);
-      setDialectCountFromRegion(data?.length);
+    setSelectedPath(null);
+    setSelectedRegion(null);
+    if (data && data.length) {
+      setDialectCountFromRegion(data.length);
     }
   };
 
@@ -81,7 +80,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
             className='border-border border-gray-100 w-1/1 h-fit p-10 bg-red'
           >
             <h1 className='text-6xl'>{selectedPath}</h1>
-            <p>{t('statistic.city')}</p>
+            <p className='text-4xl'>{t('statistic.city')}</p>
           </motion.div>
         </motion.div>
       </div>
@@ -98,7 +97,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
       >
         <g id='qq_map' stroke='#fff' color='#000'>
           <path
-            name='Петропавл'
+            name='petropavl'
             id={t('statistic.regions.petropavl')}
             onClick={handlePathClick}
             transform={`${
@@ -125,7 +124,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Астана'
+            name='astana'
             id={t('statistic.regions.astana')}
             onClick={handlePathClick}
             transform={`${
@@ -152,7 +151,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Қостанай'
+            name='qostanay'
             id={t('statistic.regions.qostanay')}
             onClick={handlePathClick}
             transform={`${
@@ -179,7 +178,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Павлодар'
+            name='pavlodar'
             id={t('statistic.regions.pavlodar')}
             onClick={handlePathClick}
             transform={`${
@@ -205,7 +204,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
             overflow='visible'
           />
           <path
-            name='Ақтөбе'
+            name='aktobe'
             id={t('statistic.regions.aktobe')}
             onClick={handlePathClick}
             transform={`${
@@ -234,7 +233,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Орал'
+            name='oral'
             id={t('statistic.regions.oral')}
             onClick={handlePathClick}
             transform={`${
@@ -261,7 +260,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Атырау'
+            name='atyrau'
             id={t('statistic.regions.atyrau')}
             onClick={handlePathClick}
             transform={`${
@@ -288,7 +287,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Ақтау'
+            name='aqtau'
             id={t('statistic.regions.aqtau')}
             onClick={handlePathClick}
             transform={`${
@@ -317,7 +316,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Қызылорда'
+            name='qyzylorda'
             id={t('statistic.regions.qyzylorda')}
             onClick={handlePathClick}
             transform={`${
@@ -344,7 +343,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Жезқазған'
+            name='zhezqazgan'
             id={t('statistic.regions.zhezqazgan')}
             onClick={handlePathClick}
             transform={`${
@@ -371,7 +370,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Шымкент'
+            name='shymkent'
             id={t('statistic.regions.shymkent')}
             onClick={handlePathClick}
             transform={`${
@@ -400,7 +399,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Алматы'
+            name='almaty'
             id={t('statistic.regions.almaty')}
             onClick={handlePathClick}
             transform={`${
@@ -429,7 +428,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Қарағанды'
+            name='qaragandy'
             id={t('statistic.regions.qaragandy')}
             onClick={handlePathClick}
             transform={`${
@@ -458,7 +457,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Тараз'
+            name='taraz'
             id={t('statistic.regions.taraz')}
             onClick={handlePathClick}
             transform={`${
@@ -485,7 +484,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Талдықорған'
+            name='taldyqorgan'
             id={t('statistic.regions.taldyqorgan')}
             onClick={handlePathClick}
             transform={`${
@@ -512,7 +511,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Өскемен'
+            name='oskemen'
             id={t('statistic.regions.oskemen')}
             onClick={handlePathClick}
             transform={`${
@@ -539,7 +538,7 @@ const MapSvg: React.FC<IMap> = ({ data, setDialectCountFromRegion }) => {
           />
 
           <path
-            name='Семей'
+            name='semey'
             id={t('statistic.regions.semey')}
             onClick={handlePathClick}
             transform={`${
