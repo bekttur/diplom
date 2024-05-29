@@ -13,7 +13,6 @@ export interface IAllDialect {
 export interface IResult {
   data: IAllDialect[] | undefined;
   handleDialect: string;
-  currentRegion: string[];
 }
 
 export interface ITypewriter {

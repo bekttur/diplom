@@ -5,9 +5,13 @@ import Typewriter from '../../components/ui/text-animation/Typewriter';
 import { useEffect, useRef, useState } from 'react';
 import SearchForm from '../../components/screen/search/searchForm/SearchForm';
 import Result from '../../components/screen/search/result/Result';
-import { useDialects } from '../../hooks/useDialects';
 import AbayDark from '../../components/ui/abay/AbayDark';
 import Advantages from '../../components/screen/search/advantages/Advantages';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import { IAllDialect } from '../../app.interface';
+import { APP_BACKEND_IP } from '../../../appconfig';
+import Steps from '../../components/screen/search/result/Steps';
 
 const Search = ({
   handleVisibility,
@@ -18,8 +22,29 @@ const Search = ({
 
   const [handleDialect, setHandleDialect] = useState('');
   const [currentRegion, setCurrentRegion] = useState(['']);
+  const [hasData, setHasData] = useState(true); // State to track if data exists
 
-  const { data } = useDialects();
+  // const { data } = useDialects();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['dialects', handleDialect, currentRegion],
+    // enabled: false,
+    queryFn: () =>
+      axios.get<IAllDialect[]>(
+        `${APP_BACKEND_IP}/data?zone=${currentRegion}&title=${handleDialect}`
+      ),
+    select: ({ data }) => data,
+    retry: 10,
+  });
+
+  useEffect(() => {
+    // Check if there is no data to display
+    if (!isLoading && (!data || data.length === 0)) {
+      setHasData(false);
+    } else {
+      setHasData(true);
+    }
+  }, [data, isLoading]);
 
   const resultRef = useRef<HTMLDivElement>(null);
 
@@ -93,13 +118,40 @@ const Search = ({
           </div>
         </div>
       </div>
-      <div id='result' ref={resultRef}>
-        <Result
-          data={data}
-          handleDialect={handleDialect}
-          currentRegion={currentRegion}
-        />
-      </div>
+      {hasData ? (
+        <div id='result' ref={resultRef}>
+          <Result data={data} handleDialect={handleDialect} />
+        </div>
+      ) : (
+        <div
+          id='result'
+          ref={resultRef}
+          className='w-full h-[80vh] flex items-center justify-center'
+        >
+          <div className='w-[30%]'>
+            {handleDialect.length < 15 ? (
+              <p className='text-5xl mb-3'>
+                {t('search.no-result.first')}{' '}
+                <span className='text-[#00749E]'>
+                  «{handleDialect.toLowerCase()}»{' '}
+                </span>
+                {t('search.no-result.second')}
+              </p>
+            ) : (
+              <p className='text-5xl mb-3'>
+                {t('search.no-result.first')} {t('search.no-result.second')}
+              </p>
+            )}
+            <p>{t('search.no-result.description')}</p>
+          </div>
+          <img
+            width={250}
+            src='../../../public/other/no-result.png'
+          />
+        </div>
+      )}
+
+      <Steps />
       <Advantages />
     </>
   );

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 const Steps = () => {
 	const { t } = useTranslation('translation');
 	return (
-		<div className='w-full h-screen flex items-center justify-between'>
+		<div className='w-full h-[80vh] flex items-center justify-between' style={{ scrollSnapAlign: 'center', overflowX: 'hidden' }}>
           <motion.div
             variants={variants}
             initial='initial'

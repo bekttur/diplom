@@ -7,7 +7,7 @@ import Main from './main/Main';
 const Home = ({ handleVisibility }: HomeProps) => {
 
   return (
-    <div>
+    <div className='html'>
       <Main handleVisibility={handleVisibility} />
       <Advantages />
       <FAQ />

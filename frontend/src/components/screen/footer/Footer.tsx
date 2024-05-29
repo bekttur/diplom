@@ -15,7 +15,7 @@ const Footer = () => {
   return (
     <div
       className='w-full h-fit p-5 flex items-center justify-center flex-col gap-5 bg-[#fff] dark:bg-[#18191B] text-[#18181b] dark:text-white border-t-2 border-[#F5F5F5] dark:border-[#FFC100]'
-      style={{ scrollSnapAlign: 'center' }}
+      style={{ scrollSnapAlign: 'center'}}
     >
       <div>
         <ul className='flex items-center justify-between gap-3 cursor-pointer'>

@@ -68,6 +68,11 @@
         "thirdTitle": "With us",
         "thirdDescription": "Contribute to the dictionary"
       }
+    },
+    "no-result": {
+      "first": "The dialect word",
+      "second": "you searched for was not found.",
+      "description": "Try other versions or check the subscription."
     }
   },
 

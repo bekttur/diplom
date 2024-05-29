@@ -1,7 +1,7 @@
 // @ts-ignore
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import { IAllDialect, IOption } from '../../../app.interface';
+import { IAllDialect } from '../../../app.interface';
 import { useCreateDialect } from '../../../hooks/useCreateDialect';
 import { TextArea, TextField } from '@radix-ui/themes';
 import { motion } from 'framer-motion';

@@ -1,6 +1,5 @@
 // @ts-ignore
 import { useTranslation } from 'react-i18next';
-import ButtonUI from '../../../ui/button/Button';
 import { HandHeart, UserRoundCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { variants } from '../../../ui/variants/variants';
@@ -10,7 +9,7 @@ const Advantages = () => {
 
   return (
     <div
-      className='w-full h-screen flex items-center justify-center'
+      className='w-full h-[80vh] flex items-center justify-center'
       style={{ scrollSnapAlign: 'center', overflowX: 'hidden' }}
     >
       <div className='w-1/2 flex flex-col items-center justify-center p-28'>

@@ -256,12 +256,29 @@ app.post('/add', async (request, response) => {
 // ALL DIALECT DATA GET
 app.get('/data', async (request, response) => {
   try {
-    const data = await Dialects.find();
+    const { zone, title } = request.query;
+    let data;
+
+    if (zone && title) {
+      data = await Dialects.find({ zone, title });
+    }
+    else if (zone) {
+      data = await Dialects.find({ zone });
+    }
+    else if (title) {
+      data = await Dialects.find({ title });
+    }
+    else {
+      data = await Dialects.find();
+    }
+
     response.json(data);
   } catch (error) {
     response.status(500).json({ message: error.message });
   }
 });
+
+
 
 // ALL USER DATA GET
 app.get('/users', async (request, response) => {

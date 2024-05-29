@@ -16,9 +16,7 @@ const SelectOption: React.FC<SelectOptionProps> = ({
   const { t } = useTranslation('translation'); 
 
   const getValue = () => {
-    return currentRegion.length > 0
-      ? zone.find((c) => c.value === currentRegion[0])
-      : '';
+    return zone.find((c) => c.value === currentRegion[0])
   };
 
   const translatedOptions = zone.map(option => ({

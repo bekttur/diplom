@@ -22,6 +22,8 @@ const Single = ({ item }: { item: Item }) => {
       className='w-full h-screen'
       style={{
         scrollSnapAlign: 'center',
+        scrollSnapType: 'y mandatory',
+  scrollBehavior: 'smooth'
       }}
     >
       <div className={styles.container}>
@@ -29,7 +31,10 @@ const Single = ({ item }: { item: Item }) => {
           <div className={styles.imageContainer} ref={ref}>
             <img src={item.img} />
           </div>
-          <motion.div className={styles.textContainer} style={{ y }}>
+          <motion.div 
+            className={styles.textContainer} 
+            // style={{ y }}
+          >
             <h2>{t(item.title)}</h2>
             <p>{t(item.description)}</p>
           </motion.div>

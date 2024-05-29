@@ -20,7 +20,10 @@ const SearchForm: React.FC<ISearchForm> = ({
 
   const onSubmit: SubmitHandler<ISearch> = (data) => {
     setShowLoading(true);
-    setHandleDialect(data.search);
+
+    const capitalizedSearch =
+      data.search.charAt(0).toUpperCase() + data.search.slice(1).toLowerCase();
+    setHandleDialect(capitalizedSearch);
     setTimeout(() => setShowLoading(false), 800);
   };
 

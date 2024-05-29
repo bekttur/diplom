@@ -1,37 +1,60 @@
-// @ts-ignore
-import { useTranslation } from 'react-i18next';
-import { AlertDialog, Button, Dialog, Flex, Table } from '@radix-ui/themes';
-import { motion } from 'framer-motion';
-import { useDialects } from '../../../hooks/useDialects';
-import { useEffect, useState } from 'react';
-import { IAllDialect } from '../../../app.interface';
+import { useState, useEffect } from 'react';
+import {
+  TextField,
+  Table,
+  Dialog,
+  AlertDialog,
+  Button,
+  Flex,
+} from '@radix-ui/themes';
 import { Pencil, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
+// @ts-ignore
+import { useTranslation } from 'react-i18next';
 import { DialectService } from '../../../services/dialect.service';
 import EditDialectPage from './editDialectPage/EditDialectPage';
 import AddDialect from '../addDialect/AddDialect';
 import ButtonUI from '../../../components/ui/button/Button';
+import { IAllDialect } from '../../../app.interface';
 
 const EditDialect = () => {
   const { t } = useTranslation('translation');
-
-  const { data } = useDialects();
-
+  const [title, setTitle] = useState<string>('');
   const [dialectsData, setDialectsData] = useState<IAllDialect[]>([]);
+  const [filteredDialects, setFilteredDialects] = useState<IAllDialect[]>([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await DialectService.getAll();
+      setDialectsData(response.data);
+      setFilteredDialects(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   useEffect(() => {
-    if (!data) return;
-    setDialectsData([
-      // @ts-ignore
-      ...data.map((elem: IAllDialect) => ({ ...elem, isDirty: false })),
-    ]);
-  }, [data]);
+    fetchData();
+  }, []);
 
-  const deleteData = async (_id: string, title: string) => {
+  const handleSearch = (searchTerm: string) => {
+    const filtered = dialectsData.filter((dialect) =>
+      dialect.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredDialects(filtered);
+  };
+
+  const deleteData = async (_id: string) => {
     try {
       await DialectService.deleteDialect(_id);
       toast.success('Успешно удалено!');
-      window.location.reload();
+      const updatedDialects = dialectsData.filter(
+        (dialect) => dialect._id !== _id
+      );
+      setDialectsData(updatedDialects);
+      handleSearch(title);
+      fetchData()
     } catch (error) {
       toast.error('Ошибка при удалении');
     }
@@ -54,11 +77,20 @@ const EditDialect = () => {
       className='w-fit h-fit flex flex-col items-center justify-center gap-5 shadow bg-white dark:bg-transparent px-20 py-5 rounded-lg'
       style={{ scrollSnapAlign: 'center' }}
     >
+      <div className='w-full flex items-center justify-center'>
+        <TextField.Input
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+            handleSearch(e.target.value);
+          }}
+          style={{ width: 300 }}
+          size='2'
+          placeholder='Search…'
+        />
+      </div>
       <div>
-        <Table.Root
-          // variant='surface'
-          style={{ maxHeight: 400, overflowY: 'auto' }}
-        >
+        <Table.Root style={{ maxHeight: 400, overflowY: 'auto' }}>
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeaderCell width={350}>
@@ -72,65 +104,61 @@ const EditDialect = () => {
               </Table.ColumnHeaderCell>
             </Table.Row>
           </Table.Header>
-
           <Table.Body>
-            {dialectsData &&
-              dialectsData.map((item: any, index: number) => (
-                <Table.Row key={index}>
-                  <Table.RowHeaderCell>{item.title}</Table.RowHeaderCell>
-                  <Table.Cell>{getRegionValue(item)}</Table.Cell>
-                  <Table.Cell>
-                    <div className='flex items-center gap-5'>
-                      <Dialog.Root>
-                        <Dialog.Trigger>
-                          <Pencil width={16} color='#FFC100' cursor='pointer' />
-                        </Dialog.Trigger>
-
-                        <Dialog.Content style={{ maxWidth: 1100 }}>
-                          <Dialog.Title>{t('control.edit.title')}</Dialog.Title>
-                          <Dialog.Description size='2' mb='4'>
-                            {t('control.edit.enter')}
-                          </Dialog.Description>
-                          <div className='w-full flex items-center justify-center'>
-                            <EditDialectPage dialect={item} />
-                          </div>
-                        </Dialog.Content>
-                      </Dialog.Root>
-
-                      <AlertDialog.Root>
-                        <AlertDialog.Trigger>
-                          <Trash2 width={16} color='#F56565' cursor='pointer' />
-                        </AlertDialog.Trigger>
-                        <AlertDialog.Content style={{ maxWidth: 450 }}>
-                          <AlertDialog.Title>
-                            {t('control.alert.deleteTitle')}
-                          </AlertDialog.Title>
-                          <AlertDialog.Description size='2'>
-                            {t('control.alert.deleteDescription')}
-                          </AlertDialog.Description>
-
-                          <Flex gap='3' mt='4' justify='end'>
-                            <AlertDialog.Cancel>
-                              <Button variant='soft' color='gray'>
-                                {t('control.alert.cancel')}
-                              </Button>
-                            </AlertDialog.Cancel>
-                            <AlertDialog.Action>
-                              <Button
-                                variant='solid'
-                                color='red'
-                                onClick={() => deleteData(item._id, item.title)}
-                              >
-                                {t('control.alert.delete')}
-                              </Button>
-                            </AlertDialog.Action>
-                          </Flex>
-                        </AlertDialog.Content>
-                      </AlertDialog.Root>
-                    </div>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
+            {filteredDialects.map((item: IAllDialect, index: number) => (
+              <Table.Row key={index}>
+                <Table.RowHeaderCell>{item.title}</Table.RowHeaderCell>
+                <Table.Cell>{getRegionValue(item)}</Table.Cell>
+                <Table.Cell>
+                  <div className='flex items-center gap-5'>
+                    <Dialog.Root>
+                      <Dialog.Trigger>
+                        <Pencil width={16} color='#FFC100' cursor='pointer' />
+                      </Dialog.Trigger>
+                      <Dialog.Content style={{ maxWidth: 1100 }}>
+                        <Dialog.Title>{t('control.edit.title')}</Dialog.Title>
+                        <Dialog.Description size='2' mb='4'>
+                          {t('control.edit.enter')}
+                        </Dialog.Description>
+                        <div className='w-full flex items-center justify-center'>
+                          <EditDialectPage dialect={item} />
+                        </div>
+                      </Dialog.Content>
+                    </Dialog.Root>
+                    <AlertDialog.Root>
+                      <AlertDialog.Trigger>
+                        <Trash2 width={16} color='#F56565' cursor='pointer' />
+                      </AlertDialog.Trigger>
+                      <AlertDialog.Content style={{ maxWidth: 450 }}>
+                        <AlertDialog.Title>
+                          {t('control.alert.deleteTitle')}
+                        </AlertDialog.Title>
+                        <AlertDialog.Description size='2'>
+                          {t('control.alert.deleteDescription')}
+                        </AlertDialog.Description>
+                        <Flex gap='3' mt='4' justify='end'>
+                          <AlertDialog.Cancel>
+                            <Button variant='soft' color='gray'>
+                              {t('control.alert.cancel')}
+                            </Button>
+                          </AlertDialog.Cancel>
+                          <AlertDialog.Action>
+                            <Button
+                              variant='solid'
+                              color='red'
+                              // @ts-ignore
+                              onClick={() => deleteData(item._id)}
+                            >
+                              {t('control.alert.delete')}
+                            </Button>
+                          </AlertDialog.Action>
+                        </Flex>
+                      </AlertDialog.Content>
+                    </AlertDialog.Root>
+                  </div>
+                </Table.Cell>
+              </Table.Row>
+            ))}
           </Table.Body>
         </Table.Root>
       </div>
@@ -139,7 +167,6 @@ const EditDialect = () => {
           <Dialog.Trigger>
             <ButtonUI title={t('control.dialect.addButton')} />
           </Dialog.Trigger>
-
           <Dialog.Content style={{ maxWidth: 1100 }}>
             <Dialog.Title>{t('control.add.addTitle')}</Dialog.Title>
             <Dialog.Description size='2' mb='4'>
